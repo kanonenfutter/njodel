@@ -1,8 +1,35 @@
 body {
-  padding: 50px;
+  padding: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 a {
   color: #00B7FF;
+}
+div {
+	border-style: solid;
+  	border-width: 1px;
+  	padding: 10px;
+
+}
+
+.jodel {
+  	margin-bottom: 1px;
+  	color: white;
+}
+
+.msg {
+	float: left;
+}
+.karma {
+	min-width: 50px;
+}
+
+.list {
+	padding: 0px;
+
 }

@@ -3,9 +3,99 @@
   <head>
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>  -->
+    <script
+  		src="https://code.jquery.com/jquery-2.2.4.min.js"
+  		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  		crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
   </head>
   <body>
     <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <p><%= title %> ist ein einfacher Jodelclient</p>
+    <div id="list" class="container list">
+    	<!-- Insert Jodels -->
+    	
+    </div>
+     <script type="text/javascript">
+        $('#form').submit(function(event) {
+            //Verhindert das Standard-Verhalten von submit
+            event.preventDefault();
+            // Formulardaten werden als JSON Objekt gespeichert
+            var data = {
+                input: $('#input').val()
+            };
+            // POST on Resource '/input'
+            var ajaxPost = $.ajax({
+                type: 'POST',
+                url: '/input',
+                data: JSON.stringify(data),
+                contentType: 'application/json'
+            });
+            ajaxPost.done(function(data) {
+                alert('Success!' + JSON.stringify(data.unique));
+                // Formular wird zurueckgesetzt
+                $('#form')[0].reset();
+                var unique = JSON.stringify(data.unique);
+                unique=unique.replace(/^"\\"/, "");
+                unique=unique.replace(/\\""$/, "");
+                var raw = JSON.stringify(data.raw);
+                raw=raw.replace(/^"\\"/, "");
+                raw=raw.replace(/\\""$/, "");
+                var defs = JSON.stringify(data.defs);
+                $('#unique').text(unique);
+
+                //$('#raw').text(raw);
+
+                //Iterate through data.defs and build html
+                var buffer = "";
+
+                for (var i = 0; i < JSON.stringify(data.defs.length); i++) {
+                    var item = data.defs[i];
+                    buffer+="<li class='list-group-item'><a class='kanji' href='" + item.url + "'>" + item.kanji + "</a> " + item.translations+
+                        "</li>";
+
+                };
+                $('ul').html(buffer);
+
+                var raw_html = raw.split("");
+                for (var i = 0; i < (data.defs.length*1); i++) {
+                    for (var j =  0; j < raw_html.length; j++) {
+                        if (raw_html[j].localeCompare(data.defs[i].kanji)==0) {
+                            var kanji = raw_html[j];
+                            raw_html[j] = "<a class='tooltips n"+ data.defs[i].level+ "' href='#''>" + kanji +"<span>" + data.defs[i].translations + "<br>Kanji level: " + data.defs[i].level +"</span></a>";
+                        };
+                    };
+                };
+                $('#rawdiv').html(raw_html.join(""));
+
+
+            });
+            ajaxPost.fail(function(e) {
+                alert('Error: (' + JSON.stringify(e) + ')');
+            });
+        });
+    </script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+    	var url = "/recent";
+    	$.getJSON(url)
+    		.done(function (data) {
+    			console.log(data.recent);
+    			$.each( data.recent, function (i, item) {
+    				$("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"> <div class="msg">' + item.message + '</div><div class="karma">'+ item.vote_count + '</div></div>');
+    			});
+    		})
+    		.fail(function () {
+    			console.log("error");
+    		})
+    		.always(function () {
+    			console.log("complete");
+    		});
+    });
+    	
+    </script>
   </body>
 </html>
