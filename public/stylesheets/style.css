@@ -2,7 +2,7 @@ body {
   padding: 0px;
   margin-right: 0px;
   margin-left: 0px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 20px "Source Sans Pro", "Lucida Grande", Helvetica, Arial, sans-serif;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -12,14 +12,18 @@ a {
 }
 div {
 	border-style: solid;
-  	border-width: 1px;
-  	padding: 10px;
+  border-width: 0px;
+  padding: 10px;
 
 }
 
 .jodel {
-  	margin-bottom: 1px;
-  	color: white;
+  margin-bottom: 1px;
+  margin-top: 1px;
+  color: white;
+  padding: 0px;
+  min-height: 100px;
+  font-weight: 400;
 }
 
 .msg {
@@ -27,9 +31,14 @@ div {
 }
 .karma {
 	min-width: 50px;
+  text-align: right;
 }
 
 .list {
 	padding: 0px;
 
+}
+
+.jimage {
+  width: 100%;
 }

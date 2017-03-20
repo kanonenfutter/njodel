@@ -11,10 +11,13 @@
   		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   		crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p><%= title %> ist ein einfacher Jodelclient</p>
+    <div class="header">
+        <h1><%= title %></h1>
+        <p><%= title %> ist ein einfacher Jodelclient</p>    
+    </div>
     <div id="list" class="container list">
     	<!-- Insert Jodels -->
     	
@@ -24,9 +27,13 @@
     	var url = "/recent";
     	$.getJSON(url)
     		.done(function (data) {
-    			console.log(data.recent);
-    			$.each( data.recent, function (i, item) {
-    				$("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"> <div class="msg">' + item.message + '</div><div class="karma">'+ item.vote_count + '</div></div>');
+    			console.log(data);
+    			$.each( data.voted, function (i, item) {
+                    if (item.image_url == null) {
+    				$("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"> <div class="msg">' + item.message + '</div><div class="karma">'+ item.vote_count + ' Karma</div></div>');
+                    } else {
+                        $("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"><img src="http:'+ item.image_url +'" alt="image" class="jimage"><div class="karma">'+ item.vote_count + ' Karma</div></div>');
+                    }
     			});
     		})
     		.fail(function () {
