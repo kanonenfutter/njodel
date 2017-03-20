@@ -12,15 +12,22 @@
   		crossorigin="anonymous"></script>
     <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
   </head>
   <body>
     <div class="header">
         <h1><%= title %></h1>
-        <p><%= title %> ist ein einfacher Jodelclient</p>    
+        <p><%= title %> ist ein einfacher* Jodelclient.</p>    
     </div>
     <div id="list" class="container list">
     	<!-- Insert Jodels -->
     	
+    </div>
+    <div class="footer">
+        <a href="https://github.com/kanonenfutter/njodel">Github-Repo</a>
+        *sprich: Er zeigt die neusten, meist kommentiertesten oder populärsten Jodel in Köln. Je nach dem, worauf der Entwickler gerade Lust hat.
+
     </div>
     <script type="text/javascript">
     $(document).ready(function () {
@@ -29,10 +36,13 @@
     		.done(function (data) {
     			console.log(data);
     			$.each( data.voted, function (i, item) {
+                    var age = moment(item.created_at).fromNow();
+                    //var temp_msg = item.msg;;
+
                     if (item.image_url == null) {
-    				$("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"> <div class="msg">' + item.message + '</div><div class="karma">'+ item.vote_count + ' Karma</div></div>');
+    				$("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"> <div class="msg">' +  item.message + '</div><div class="karma">'+ age+ ' - ' +item.vote_count + ' Karma</div></div>');
                     } else {
-                        $("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"><img src="http:'+ item.image_url +'" alt="image" class="jimage"><div class="karma">'+ item.vote_count + ' Karma</div></div>');
+                        $("#list").append('<div class="jodel" style="background-color: #' + item.color + ';"><img src="http:'+ item.image_url +'" alt="image" class="jimage"><div class="karma"><br>'+ age+ ' - ' +item.vote_count + ' Karma</div></div>');
                     }
     			});
     		})

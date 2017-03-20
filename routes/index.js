@@ -3,6 +3,9 @@ var router = express.Router();
 var http = require('http');
 const request = require('request-promise');
 
+var moment = require('moment');
+moment().format();
+
 const host = 'https://api.go-tellm.com';
 
 var headers = {
@@ -12,7 +15,7 @@ var headers = {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'njodel' });
+  	res.render('index', { title: 'njodel' });
 });
 
 
@@ -24,15 +27,16 @@ router.get('/recent', function(req, res, next) {
 		json: true,
 		method: 'GET',
 		qs: {
-			lat: 50.819923400878906,
-			lng: 6.8911275863,
-			home: true
+			lat: '52.52001',
+			lng: '13.40495',
+			home: false,
+			stickies: false
 		}
 
 	};
 	request(options)
 		.then(function (data){
-			console.log(data.recent);
+			//console.log(data.recent);
 			res.json(data);
 		})
 		.catch(function (err) {

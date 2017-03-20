@@ -5,6 +5,10 @@ body {
   font: 20px "Source Sans Pro", "Lucida Grande", Helvetica, Arial, sans-serif;
   max-width: 600px;
   margin: 0 auto;
+  -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+      -ms-user-select: none;
+        user-select: none;
 }
 
 a {
@@ -24,14 +28,17 @@ div {
   padding: 0px;
   min-height: 100px;
   font-weight: 400;
+  position:relative;
+
 }
 
 .msg {
-	float: left;
+	/*float: left;*/
 }
 .karma {
-	min-width: 50px;
+	/*min-width: 50px;*/
   text-align: right;
+  font-size: 12px;
 }
 
 .list {
@@ -41,4 +48,8 @@ div {
 
 .jimage {
   width: 100%;
+}
+
+.footer {
+  font-size: 10px;
 }
