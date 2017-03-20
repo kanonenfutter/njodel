@@ -1,10 +1,10 @@
 # njodel
 
-<Kurze Beschreibung>
+<Kurze Beschreibung
 
-<reverse engineering: JodelAPI>
+reverse engineering: JodelAPI
 
-<Notizen zu den Eigenschaften der JSON-Daten. Eigenschaften, die für den gewöhnlichen Benutzer verborgen bleiben>
+Notizen zu den Eigenschaften der JSON-Daten. Eigenschaften, die für den gewöhnlichen Benutzer verborgen bleiben>
 
 
 
