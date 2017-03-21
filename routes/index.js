@@ -36,7 +36,6 @@ router.get('/recent', function(req, res, next) {
 	};
 	request(options)
 		.then(function (data){
-			//console.log(data.recent);
 			res.json(data);
 		})
 		.catch(function (err) {
@@ -61,7 +60,6 @@ router.get('/recent/:latitude/:longitude', function(req, res, next) {
 	};
 	request(options)
 		.then(function (data){
-			console.log(data);
 			res.json(data);
 		})
 		.catch(function (err) {
@@ -72,16 +70,40 @@ router.get('/recent/:latitude/:longitude', function(req, res, next) {
 });
 
 router.get('/posts/:id', function (req, res, next) {
-	// body...
+	console.log(req.params.id);
 	var data = '';
 	var options = {
-		uri: host + '/api/v3/posts/location/combo',
+		uri: host + '/api/v3/posts/' + req.params.id + '/details',
 		headers: headers,
 		json: true,
 		method: 'GET',
 		qs: {
-			lat: latitude,
-			lng: longitude
+			reverse: false,
+			details: true
+		}
+
+	};
+	request(options)
+		.then(function (data){
+			res.json(data);
+		})
+		.catch(function (err) {
+			console.log(err);
+			res.end();
+		});
+});
+
+router.get('/posts/:id/:next', function (req, res, next) {
+	var data = '';
+	var options = {
+		uri: host + '/api/v3/posts/' + req.params.id + '/details',
+		headers: headers,
+		json: true,
+		method: 'GET',
+		qs: {
+			reverse: false,
+			details: true,
+			reply: req.params.next
 		}
 
 	};
@@ -94,6 +116,6 @@ router.get('/posts/:id', function (req, res, next) {
 			console.log(err);
 			res.end();
 		});
-})
+});
 
 module.exports = router;

@@ -10,9 +10,11 @@ body {
       -ms-user-select: none;
         user-select: none;
 }
-
 a {
-  color: #00B7FF;
+  color: grey;
+}
+a.res {
+  color: #FFFFFF;
 }
 div {
 	border-style: solid;
@@ -38,12 +40,12 @@ div {
 .karma {
 	/*min-width: 50px;*/
   text-align: right;
+  padding-top: 30px;
   font-size: 12px;
 }
 
 .list {
 	padding: 0px;
-
 }
 
 .jimage {
