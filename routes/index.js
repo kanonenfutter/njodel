@@ -102,14 +102,13 @@ router.get('/posts/:id/:next', function (req, res, next) {
 		method: 'GET',
 		qs: {
 			reverse: false,
-			details: true,
+			details: false,
 			reply: req.params.next
 		}
 
 	};
 	request(options)
 		.then(function (data){
-			console.log(data);
 			res.json(data);
 		})
 		.catch(function (err) {
