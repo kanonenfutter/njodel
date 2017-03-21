@@ -2,7 +2,7 @@
 
 njodel ist ein einfacher Client für die Jodel API. Im Hintergrund läuft ein express.js-Webserver, der seibst eine restful API bereitstellt.
 
-Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](Ergebnisse)) ermittelt. Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
+Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](https://github.com/kanonenfutter/njodel/wiki)) ermittelt. Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
 
 
 
