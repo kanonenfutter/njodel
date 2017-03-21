@@ -43,6 +43,10 @@
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
+                // Change first argument of each() to display
+                // Most recent: data.recent
+                // Most replied: data.replied
+                // Most voted: data.voted
                 $.each( data.replied, function (i, item) {
                     var age = moment(item.created_at).fromNow();
 

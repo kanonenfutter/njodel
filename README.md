@@ -2,7 +2,7 @@
 
 njodel ist ein einfacher Client für die Jodel API. Im Hintergrund läuft ein express.js-Webserver, der seibst eine restful API bereitstellt.
 
-Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](Ergebnisse)). Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
+Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](Ergebnisse)) ermittelt. Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
 
 
 
@@ -10,12 +10,14 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 
 * Node.js
 
+* optional: nodemon 
+
   ​
 
 ## Installation
 
 - clone repository
-- navigate to Root Directory
+- navigate to the root directory
 - run `npm install` to install the dependencies
 - To start the webserver, run: `nodemon app` or `node ./bin/www`
 - open `http://localhost:3000` in your browser
@@ -23,9 +25,13 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 
 
 
-## ToDos
+You can not switch between most recent, replied or voted Jodels on the website. See comment at
 
-- Display one Jodel and its responses
+`line 46@views/index.ejs`
+
+
+
+## ToDos
 
 - Filter responses: Only show OJs responses?
 
