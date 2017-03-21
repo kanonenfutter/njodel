@@ -1,12 +1,16 @@
 # njodel
 
-<Kurze Beschreibung
+njodel ist ein einfacher Client für die Jodel API. Im Hintergrund läuft ein express.js-Webserver, der seibst eine restful API bereitstellt.
 
-reverse engineering: JodelAPI
-
-Notizen zu den Eigenschaften der JSON-Daten. Eigenschaften, die für den gewöhnlichen Benutzer verborgen bleiben>
+Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](Ergebnisse)). Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
 
 
+
+## Requirements
+
+* Node.js
+
+  ​
 
 ## Installation
 
@@ -18,22 +22,32 @@ Notizen zu den Eigenschaften der JSON-Daten. Eigenschaften, die für den gewöhn
 
 
 
+
 ## ToDos
 
 - Display one Jodel and its responses
+
 - Filter responses: Only show OJs responses?
+
 - Hashtagbrowser, e.g. display all Jodels containing #archiv
+
 - Set a custom location
+
+  ​
 
 
 
 ## Issues
 
+* there might be some issues.
 
+  ​
 
 ## Notice
 
 The authentification token "Bearer ..." in `/routes/index.js`  was generated on a real device. Please do not use it for harmful purposes. 
+
+If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. I haven't figured out a convenient way to obtain one yet. Capturing your app's traffic is one way to do so.
 
 
 
