@@ -5,15 +5,14 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script
-  		src="https://code.jquery.com/jquery-2.2.4.min.js"
-  		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-  		crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
     <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
   </head>
   <body>
     <div class="header">
@@ -23,7 +22,7 @@
         </div>   
     </div>
     <div id="list" class="container list">
-    	<!-- Insert Jodels -->
+        <!-- Insert Jodels -->
     </div>
     <div id="details" class="list"></div>
     <div class="footer">
@@ -37,16 +36,12 @@
     var next = null;
     var post_id = "";
     $(document).ready(function () {
-    	var url = "/recent";
+        var url = "/recent";
         $("#details").hide();
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
-                // Change first argument of each() to display
-                // Most recent: data.recent
-                // Most replied: data.replied
-                // Most voted: data.voted
-                $.each( data.recent, function (i, item) {
+                $.each( data.replied, function (i, item) {
                     var age = moment(item.created_at).fromNow();
 
                     if (item.image_url == null) {

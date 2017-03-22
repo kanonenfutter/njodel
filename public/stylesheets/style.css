@@ -40,7 +40,7 @@ div {
 .karma {
 	/*min-width: 50px;*/
   text-align: right;
-  padding-top: 30px;
+  /*padding-top: 30px;*/
   font-size: 12px;
 }
 
@@ -58,4 +58,20 @@ div {
 
 .oj {
   margin-bottom: 5px;
+}
+.vote_count {
+  font-size: 40px;
+  margin: 0px;
+}
+
+#menu {
+    display: table;
+    table-layout: fixed;
+
+    width:100%;
+    padding: 0px;
+}
+#menu a {
+  display: table-cell;
+  text-align: center;
 }

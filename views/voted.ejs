@@ -13,7 +13,6 @@
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
   </head>
   <body>
     <div class="header">
@@ -46,7 +45,7 @@
                 // Most recent: data.recent
                 // Most replied: data.replied
                 // Most voted: data.voted
-                $.each( data.recent, function (i, item) {
+                $.each( data.voted, function (i, item) {
                     var age = moment(item.created_at).fromNow();
 
                     if (item.image_url == null) {

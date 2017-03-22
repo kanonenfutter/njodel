@@ -45,6 +45,14 @@ router.get('/recent', function(req, res, next) {
 
 });
 
+router.get('/replied', function(req, res, next) {
+	res.render('replied', { title: 'njodel' });
+});
+
+router.get('/voted', function(req, res, next) {
+	res.render('voted', { title: 'njodel' });
+});
+
 router.get('/recent/:latitude/:longitude', function(req, res, next) {
 	var recentJodels = '';
 	var options = {
