@@ -35,17 +35,18 @@
 
     var next = null;
     var post_id = "";
+    var first_post_id = null;
     $(document).ready(function () {
     	var url = "/recent";
         $("#details").hide();
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
-                // Change first argument of each() to display
-                // Most recent: data.recent
-                // Most replied: data.replied
-                // Most voted: data.voted
-                $.each( data.voted, function (i, item) {
+                // recent only code:
+                first_post_id = data.recent[0].post_id;
+                console.log(first_post_id);
+                // end
+                $.each( data.<%= mode %>, function (i, item) {
                     var age = moment(item.created_at).fromNow();
 
                     if (item.image_url == null) {

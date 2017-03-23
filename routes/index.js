@@ -15,7 +15,7 @@ var headers = {
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  	res.render('index', { title: 'njodel' });
+  	res.render('main_jodel', { title: 'njodel', mode: 'recent' });
 });
 
 
@@ -46,11 +46,11 @@ router.get('/recent', function(req, res, next) {
 });
 
 router.get('/replied', function(req, res, next) {
-	res.render('replied', { title: 'njodel' });
+	res.render('main_jodel', { title: 'njodel', mode: 'replied' });
 });
 
 router.get('/voted', function(req, res, next) {
-	res.render('voted', { title: 'njodel' });
+	res.render('main_jodel', { title: 'njodel', mode: 'voted' });
 });
 
 router.get('/recent/:latitude/:longitude', function(req, res, next) {
