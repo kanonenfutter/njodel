@@ -25,11 +25,8 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 - open `http://localhost:3000` in your browser
 
 
-
-
-You can not switch between most recent, replied or voted Jodels on the website. See comment at
-
-`line 46@views/index.ejs`
+Or turn the website into a desktop application using this command line tool: [Nativefier](https://github.com/jiahaog/nativefier).
+Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min-width 400px`
 
 
 
