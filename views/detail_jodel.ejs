@@ -17,13 +17,10 @@
   </head>
   <body>
     <div class="header">
-        <h1><%= title %><a>/<%= mode %></a></h1>
+        <h1><%= title %><a>/details</a></h1>
         <div id="menu">
             <a href="/"><i class="fa fa-clock-o fa-3x" aria-hidden="true"></i></a> <a href="/replied"><i class="fa fa-commenting-o fa-3x" aria-hidden="true"></i></a> <a href="/voted"><i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a> 
         </div>   
-    </div>
-    <div id="list" class="container list">
-    	<!-- Insert Jodels -->
     </div>
     <div id="details" class="list"></div>
     <div class="footer">
@@ -34,44 +31,13 @@
     <script type="text/javascript">
 
     var next = null;
-    var post_id = "";
+    var post_id = "<%= id %>";
+    console.log(post_id);
     var first_post_id = null;
     $(document).ready(function () {
-    	var url = "/recent";
-        $("#details").hide();
-        $.getJSON(url)
-            .done(function (data) {
-                console.log(data);
-                // recent only code:
-                first_post_id = data.recent[0].post_id;
-                console.log(first_post_id);
-                // end
-                $.each( data.<%= mode %>, function (i, item) {
-                    var age = moment(item.created_at).fromNow();
+    	var url = "/posts/" + post_id;
+		getJodel(url, "#details");
 
-                    if (item.image_url == null) {
-                    $("#list").append('<div class="jodel" style="background-color: #' + 
-                        item.color + ';"> <div class="msg">' +  
-                        item.message + '</div><div class="karma"> <p class="vote_count">'+
-                        item.vote_count+'</p><br> <a class="res" id="'+
-                        item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
-                        age +'</div></div>');
-                    } else {
-                        $("#list").append('<div class="jodel" style="background-color: #' + 
-                            item.color + ';"><img src="http:'+ 
-                            item.image_url +'" alt="image" class="jimage"><div class="karma"> <p class="vote_count">'+
-                            item.vote_count+'</p><br> <a class="res" id="'+
-                            item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
-                            age +'</div></div>');
-                    }
-                });
-            })
-            .fail(function () {
-                console.log("error");
-            })
-            .always(function () {
-                console.log("complete");
-            });
 
 
         $(window).scroll(function () {
@@ -82,7 +48,7 @@
                     console.log("done loading more replys");
                 }
             }
-        });        
+        });    
     });
     </script>
   </body>

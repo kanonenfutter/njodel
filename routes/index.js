@@ -77,6 +77,11 @@ router.get('/recent/:latitude/:longitude', function(req, res, next) {
 
 });
 
+
+router.get('/details/:id', function (req, res, next) {
+	res.render('detail_jodel', { title: 'njodel', id: req.params.id});
+});
+
 router.get('/posts/:id', function (req, res, next) {
 	console.log(req.params.id);
 	var data = '';
