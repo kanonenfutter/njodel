@@ -37,7 +37,7 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 - Hashtagbrowser, e.g. display all Jodels containing #archiv
 
-- Set a custom location
+- Set a custom location: kind of...
 
   ​
 
@@ -53,14 +53,15 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 The authentification token "Bearer ..." in `/routes/index.js`  was generated on a real device. Please do not use it for harmful purposes. 
 
-If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. I haven't figured out a convenient way to obtain one yet. Capturing your app's traffic is one way to do so.
-
+If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. See Third-Party Ressourses below or use the Python script `jodel.py`
 ### Location
-You can't change the location yet. Since the built-in auth token is linked the location of the real device.
+<s>You can't change the location yet. Since the built-in auth token is linked the location of the real device.</s> Use `jodel.py`.
 
 
 
+## Third-Party Ressourses
 
+[jodel_api](https://github.com/nborrmann/jodel_api) by [nborrmann](https://github.com/nborrmann) 
 
 ## License
 
