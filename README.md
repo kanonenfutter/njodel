@@ -1,10 +1,10 @@
 # njodel
 
-njodel ist ein einfacher Client für die Jodel API. Im Hintergrund läuft ein express.js-Webserver, der seibst eine restful API bereitstellt.
+njodel ist ein einfacher Client für die Jodel API. Im Hintergrund läuft ein express.js-Webserver, der selbst eine restful API bereitstellt.
 
 Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](https://github.com/kanonenfutter/njodel/wiki)) ermittelt. Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
 
-![](http://image.prntscr.com/image/e8ff57744426414482e021f55300e26e.png)
+![](https://image.ibb.co/fg3RAa/Screen_Shot_2017_03_24_at_12_11_51.png)
 
 
 
@@ -25,12 +25,13 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 - open `http://localhost:3000` in your browser
 
 
-Or turn the website into a desktop application using this command line tool: [Nativefier](https://github.com/jiahaog/nativefier).
+Or turn the website into a desktop application using this <br>
+command line tool: [Nativefier](https://github.com/jiahaog/nativefier).
 Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min-width 400px`
 
 
 
-## ToDos
+## Coming features
 
 - Filter responses: Only show OJs responses?
 
@@ -42,17 +43,22 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 
 
-## Issues
 
-* there might be some issues.
 
   ​
 
-## Notice
+## Notices
+
+### Authentification
 
 The authentification token "Bearer ..." in `/routes/index.js`  was generated on a real device. Please do not use it for harmful purposes. 
 
 If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. I haven't figured out a convenient way to obtain one yet. Capturing your app's traffic is one way to do so.
+
+### Location
+You can't change the location yet. Since the built-in auth token is linked the location of the real device.
+
+
 
 
 
