@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var http = require('http');
 const request = require('request-promise');
+var fs = require("fs");
 
 var moment = require('moment');
 moment().format();
@@ -9,9 +10,24 @@ moment().format();
 const host = 'https://api.go-tellm.com';
 
 var headers = {
-			'User-Agent': 'Jodel/4.37.5 Dalvik/2.1.0 (Linux; U; Android 7.1; P6000 Build/NDE63P)',
-			'Authorization': 'Bearer 04272352-726d639e-88cfc995-38db-4cf2-a74b-1272ad4628d2',
-		};
+			'User-Agent': 'Jodel/4.37.5 Dalvik/2.1.0 (Linux; U; Android 7.1; P6000 Build/NDE63P)'
+};
+
+
+var account;
+
+try {
+	account = JSON.parse(fs.readFileSync(__dirname + '/../data.json'));
+} catch (err) {
+	if (err.code === 'ENOENT') {
+		console.log('File not found!');
+	} else {
+		throw err;
+	}
+}
+headers["Authorization"] = 'Bearer ' + account.account.access_token;
+
+console.log(headers);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
