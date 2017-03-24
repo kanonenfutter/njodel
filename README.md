@@ -11,16 +11,19 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 ## Requirements
 
 * Node.js
+* [jodel_api](https://github.com/nborrmann/jodel_api) by [nborrmann](https://github.com/nborrmann)
+* Python 3.x
+* optional: nodemon
 
-* optional: nodemon 
 
-  ​
 
 ## Installation
 
-- clone repository
+- download or clone this repository
 - navigate to the root directory
 - run `npm install` to install the dependencies
+- place `jodel_api.py` into the root directory
+- run `python3 jodel.py`, hit `1` and create an account by following the instructions.
 - To start the webserver, run: `nodemon app` or `node ./bin/www`
 - open `http://localhost:3000` in your browser
 
@@ -39,29 +42,21 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 - Set a custom location: kind of...
 
-  ​
 
-
-
-
-
-  ​
 
 ## Notices
 
-### Authentification
+### Authentication
 
-The authentification token "Bearer ..." in `/routes/index.js`  was generated on a real device. Please do not use it for harmful purposes. 
+The authentication token "Bearer ..." in `/routes/index.js`  was generated on a real device. Please do not use it for harmful purposes. 
 
-If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. See Third-Party Ressourses below or use the Python script `jodel.py`
+If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. Or use the Python script `jodel.py`
 ### Location
 <s>You can't change the location yet. Since the built-in auth token is linked the location of the real device.</s> Use `jodel.py`.
 
 
-
-## Third-Party Ressourses
-
-[jodel_api](https://github.com/nborrmann/jodel_api) by [nborrmann](https://github.com/nborrmann) 
+## Disclaimer
+This project is not affiliated with, endorsed or sponsored by The Jodel Venture GmbH.
 
 ## License
 
