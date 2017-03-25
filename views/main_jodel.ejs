@@ -5,21 +5,22 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script
-  		src="https://code.jquery.com/jquery-2.2.4.min.js"
+  		src="http://code.jquery.com/jquery-2.2.4.min.js"
   		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   		crossorigin="anonymous"></script>
     <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
     <script src="/javascript/script.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
     <script src="http://momentjs.com/downloads/moment.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
   </head>
   <body>
     <div class="header">
         <h1><%= title %><a>/<%= mode %></a></h1>
         <div id="menu">
-            <a href="/"><i class="fa fa-clock-o fa-3x" aria-hidden="true"></i></a> <a href="/replied"><i class="fa fa-commenting-o fa-3x" aria-hidden="true"></i></a> <a href="/voted"><i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a> 
+            <a href="/"><i class="fa fa-clock-o fa-3x" aria-hidden="true"></i></a> <a href="/replied"><i class="fa fa-commenting-o fa-3x" aria-hidden="true"></i></a> <a href="/voted"><i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a> <a href="/hashtags"><i class="fa fa-search fa-3x" aria-hidden="true"></i></a> 
         </div>   
     </div>
     <div id="list" class="container list">
@@ -58,8 +59,8 @@
                         age +'</div></div>');
                     } else {
                         $("#list").append('<div class="jodel" style="background-color: #' + 
-                            item.color + ';"><img src="http:'+ 
-                            item.image_url +'" alt="image" class="jimage"><div class="karma"> <p class="vote_count">'+
+                            item.color + ';"><img src="" data-original="http:'+ 
+                            item.image_url +'" class="lazy jimage"><div class="karma"> <p class="vote_count">'+
                             item.vote_count+'</p><br> <a class="res" id="'+
                             item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
                             age +'</div></div>');
@@ -82,8 +83,17 @@
                     console.log("done loading more replys");
                 }
             }
-        });        
+        }); 
+        $("img.lazy").lazyload({ 
+            effect: "fadeIn" 
+        }).removeClass("lazy");
+        $(document).ajaxStop(function(){
+            $("img.lazy").lazyload({ 
+                effect: "fadeIn" 
+            }).removeClass("lazy");
+        });       
     });
+
     </script>
   </body>
 </html>
