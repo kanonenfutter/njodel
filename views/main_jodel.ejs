@@ -39,13 +39,34 @@
     var first_post_id = null;
     $(document).ready(function () {
     	var url = "/recent";
-        $("#details").hide();
+        getmainJodel(url);
+
+        $(window).scroll(function () {
+            if (next != null) {
+                if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
+                    var url = '/recent/' + next;
+                    getnextJodel(url);
+                    console.log("done loading more replys");
+                }
+            }
+        }); 
+        $("img.lazy").lazyload({ 
+            effect: "fadeIn" 
+        }).removeClass("lazy");
+        $(document).ajaxStop(function(){
+            $("img.lazy").lazyload({ 
+                effect: "fadeIn" 
+            }).removeClass("lazy");
+        });       
+    });
+
+    function getmainJodel(url) {
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
                 // recent only code:
-                first_post_id = data.recent[0].post_id;
-                console.log(first_post_id);
+                //first_post_id = data.recent[0].post_id;
+                //console.log(first_post_id);
                 // end
                 $.each( data.<%= mode %>, function (i, item) {
                     var age = moment(item.created_at).fromNow();
@@ -65,7 +86,13 @@
                             item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
                             age +'</div></div>');
                     }
+
                 });
+                // store ID of last post. Needed for loading next/older jodels
+                next = data.<%= mode %>[data.<%= mode %>.length-1].post_id;
+                console.log(next);
+                
+
             })
             .fail(function () {
                 console.log("error");
@@ -74,25 +101,49 @@
                 console.log("complete");
             });
 
+    }
+    function getnextJodel(url) {
+        $.getJSON(url)
+            .done(function (data) {
+                console.log(data);
+                // recent only code:
+                //first_post_id = data.recent[0].post_id;
+                //console.log(first_post_id);
+                // end
+                $.each( data.posts, function (i, item) {
+                    var age = moment(item.created_at).fromNow();
 
-        $(window).scroll(function () {
-            if (next != null) {
-                if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
-                    var url = '/posts/' + post_id + '/' + next;
-                    getJodel(url, "#details");
-                    console.log("done loading more replys");
-                }
-            }
-        }); 
-        $("img.lazy").lazyload({ 
-            effect: "fadeIn" 
-        }).removeClass("lazy");
-        $(document).ajaxStop(function(){
-            $("img.lazy").lazyload({ 
-                effect: "fadeIn" 
-            }).removeClass("lazy");
-        });       
-    });
+                    if (item.image_url == null) {
+                    $("#list").append('<div class="jodel" style="background-color: #' + 
+                        item.color + ';"> <div class="msg">' +  
+                        item.message + '</div><div class="karma"> <p class="vote_count">'+
+                        item.vote_count+'</p><br> <a class="res" id="'+
+                        item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
+                        age +'</div></div>');
+                    } else {
+                        $("#list").append('<div class="jodel" style="background-color: #' + 
+                            item.color + ';"><img src="" data-original="http:'+ 
+                            item.image_url +'" class="lazy jimage"><div class="karma"> <p class="vote_count">'+
+                            item.vote_count+'</p><br> <a class="res" id="'+
+                            item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
+                            age +'</div></div>');
+                    }
+
+                });
+                // store ID of last post. Needed for loading next/older jodels
+                next = data.posts[data.posts.length-1].post_id;
+                console.log(next);
+                
+
+            })
+            .fail(function () {
+                console.log("error");
+            })
+            .always(function () {
+                console.log("complete");
+            });
+
+    }
 
     </script>
   </body>

@@ -6,6 +6,12 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 
 ![](https://image.ibb.co/fg3RAa/Screen_Shot_2017_03_24_at_12_11_51.png)
 
+##Features
+* Display most recent, replied and voted Jodels.
+* Search for hashtags. There is no need to spam the timeline. :)
+* Highlight OJ's replies.
+* Use Jodel on a desktop pc or in any modern webbrowser.
+
 
 
 ## Requirements
@@ -38,7 +44,7 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 - Filter responses: Only show OJs responses?
 
-- Hashtagbrowser, e.g. display all Jodels containing #archiv
+- Done: Hashtagbrowser, e.g. display all Jodels containing #archiv
 
 - Set a custom location: kind of...
 

@@ -34,7 +34,7 @@ router.get('/', function(req, res, next) {
   	res.render('main_jodel', { title: 'njodel', mode: 'recent' });
 });
 
-
+/* Get recent jodels. Response: recent, most replied and voted jodels. */
 router.get('/recent', function(req, res, next) {
 	var recentJodels = '';
 	var options = {
@@ -47,6 +47,33 @@ router.get('/recent', function(req, res, next) {
 			lng: '13.40495',
 			home: false,
 			stickies: false
+		}
+
+	};
+	request(options)
+		.then(function (data){
+			res.json(data);
+		})
+		.catch(function (err) {
+			console.log(err);
+			res.end();
+		});
+
+});
+
+/* Get older Jodel. To be called after calling GET /recent. */
+router.get('/recent/:after', function(req, res, next) {
+	var recentJodels = '';
+	var options = {
+		uri: host + '/api/v2/posts/location/',
+		headers: headers,
+		json: true,
+		method: 'GET',
+		qs: {
+			after: req.params.after,
+			lat: '52.52001',
+			lng: '13.40495',
+			home: false
 		}
 
 	};
