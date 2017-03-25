@@ -46,6 +46,7 @@ div {
 
 .list {
 	padding: 0px;
+  margin-bottom: 5px;
 }
 
 .jimage {
@@ -74,4 +75,34 @@ div {
 #menu a {
   display: table-cell;
   text-align: center;
+}
+
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  padding: 0px;
+  font-size: 30px;
+  font: 20px "Source Sans Pro", "Lucida Grande", Helvetica, Arial, sans-serif;
+
+}
+
+#search.stick {
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
+    border-radius: 0 0 0.5em 0.5em;
 }

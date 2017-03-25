@@ -146,4 +146,31 @@ router.get('/posts/:id/:next', function (req, res, next) {
 		});
 });
 
+router.get('/hashtags', function(req, res, next) {
+	res.render('hashtags', { title: 'njodel', mode: 'hashtags' });
+});
+
+router.get('/hashtags/:hashtag', function (req, res, next) {
+	var data = '';
+	var options = {
+		uri: host + '/api/v3/posts/hashtag/combo',
+		headers: headers,
+		json: true,
+		method: 'GET',
+		qs: {
+			hashtag: req.params.hashtag,
+			home: true
+		}
+
+	};
+	request(options)
+		.then(function (data){
+			res.json(data);
+		})
+		.catch(function (err) {
+			console.log(err);
+			res.end();
+		});
+})
+
 module.exports = router;
