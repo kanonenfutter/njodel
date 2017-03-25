@@ -6,7 +6,7 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 
 ![](https://image.ibb.co/fg3RAa/Screen_Shot_2017_03_24_at_12_11_51.png)
 
-##Features
+## Features
 * Display most recent, replied and voted Jodels.
 * Search for hashtags. There is no need to spam the timeline. :)
 * Highlight OJ's replies.
