@@ -20,7 +20,7 @@ try {
 	account = JSON.parse(fs.readFileSync(__dirname + '/../data.json'));
 } catch (err) {
 	if (err.code === 'ENOENT') {
-		console.log('File not found!');
+		console.log('data.json not found! Run jodel.py first!');
 	} else {
 		throw err;
 	}

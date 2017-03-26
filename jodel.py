@@ -39,9 +39,13 @@ if mode==2:
 	refresh_token = data['account']['refresh_token']
 	distinct_id = data['account']['distinct_id']
 	device_uid = data['account']['device_uid']
-	print(data)
-	j = jodel_api.JodelAccount(lat, lng, city, access_token, expiration_date, refresh_token, distinct_id, device_uid)
+	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city, access_token=access_token, expiration_date=expiration_date, refresh_token=refresh_token, distinct_id=distinct_id, device_uid=device_uid)
+	account = j.get_account_data()
+	data = {}
+	data['account']= account
+	with open('data.json', 'w') as f:
+		json.dump(data, f)
+	print("Account in Datei 'data.json' gespeichert.")
 if mode==3:
 	with open('data.json') as f:
 		data = json.load(f)
-		print(data)
