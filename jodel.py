@@ -1,5 +1,3 @@
-#from .jodel_api import JodelAccount
-import pickle
 import json
 import os
 import sys
