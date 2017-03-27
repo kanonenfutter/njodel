@@ -1,4 +1,4 @@
-function getJodel(url, element, set) {
+function getJodel(url, element, images_only_flag) {
     $.getJSON(url)
         .done(function (data) {
             console.log(data);
@@ -23,14 +23,24 @@ function getJodel(url, element, set) {
                     replier = replier;
                 }
 
-                if (item.image_url == null) {
-                $(element).append('<div class="jodel '+ replier +'"  style="background-color: #' + item.color + ';"> <div class="msg">' +  item.message + '</div><div class="karma"><p class="vote_count">'+
-                        item.vote_count+'</p><br> <i class="fa fa-user" aria-hidden="true"></i> #' + replier + '   <i class="fa fa-clock-o" aria-hidden="true"></i> '+
-                        age +'</div></div>');
+
+                if (images_only_flag == false) {
+                    if (item.image_url == null) {
+                        $(element).append('<div class="jodel '+ replier +'"  style="background-color: #' + item.color + ';"> <div class="msg">' +  item.message + '</div><div class="karma"><p class="vote_count">'+
+                            item.vote_count+'</p><br> <i class="fa fa-user" aria-hidden="true"></i> #' + replier + '   <i class="fa fa-clock-o" aria-hidden="true"></i> '+
+                            age +'</div></div>');
+                    } else {
+                        $(element).append('<div class="jodel '+ replier +'" style="background-color: #' + item.color + ';"><img src="http:'+ item.image_url +'" alt="image" class="jimage"><div class="karma"> <p class="vote_count">'+
+                            item.vote_count+'</p><br> <i class="fa fa-user" aria-hidden="true"></i> #' + replier + '   <i class="fa fa-clock-o" aria-hidden="true"></i> '+
+                            age +'</div></div>');
+                    }
                 } else {
-                    $(element).append('<div class="jodel '+ replier +'" style="background-color: #' + item.color + ';"><img src="http:'+ item.image_url +'" alt="image" class="jimage"><div class="karma"> <p class="vote_count">'+
-                        item.vote_count+'</p><br> <i class="fa fa-user" aria-hidden="true"></i> #' + replier + '   <i class="fa fa-clock-o" aria-hidden="true"></i> '+
-                        age +'</div></div>');
+                    if (item.image_url != null) {
+                        $(element).append('<div class="jodel '+ replier +'" style="background-color: #' + item.color + ';"><img src="http:'+ item.image_url +'" alt="image" class="jimage"><div class="karma"> <p class="vote_count">'+
+                            item.vote_count+'</p><br> <i class="fa fa-user" aria-hidden="true"></i> #' + replier + '   <i class="fa fa-clock-o" aria-hidden="true"></i> '+
+                            age +'</div></div>');
+                    } 
+
                 }
             });
             if (data.next != null) {

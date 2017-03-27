@@ -125,6 +125,10 @@ router.get('/details/:id', function (req, res, next) {
 	res.render('detail_jodel', { title: 'njodel', id: req.params.id});
 });
 
+router.get('/details/:id/imagesonly', function (req, res, next) {
+	res.render('detail_jodel_notext', { title: 'njodel', id: req.params.id});
+});
+
 router.get('/posts/:id', function (req, res, next) {
 	console.log(req.params.id);
 	var data = '';
