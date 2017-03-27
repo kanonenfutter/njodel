@@ -106,3 +106,20 @@ button {
     z-index: 10000;
     border-radius: 0 0 0.5em 0.5em;
 }
+
+
+body.error {
+  background-color: grey;
+}
+.error {
+  font: 12px "Source Sans Pro", "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: white;
+}
+
+h1.error {
+  font-size: 40px;
+}
+
+h2.error {
+  font-size: 30px;
+}

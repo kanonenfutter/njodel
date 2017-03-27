@@ -57,7 +57,7 @@ function highlightByClass(classname,colorover,colorout="transparent"){
     for(var i=0;i<elms.length;i++){
         elms[i].onclick = function(){
             for(var k=0;k<elms.length;k++){
-                elms[k].style.backgroundColor="orange";//colorover;
+                elms[k].style.backgroundColor="grey";//colorover;
             }
         };
     }
