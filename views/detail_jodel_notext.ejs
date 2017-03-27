@@ -36,7 +36,7 @@
     var first_post_id = null;
     $(document).ready(function () {
     	var url = "/posts/" + post_id;
-		getJodel(url, "#details", false);
+		getJodel(url, "#details", true);
 
 
 
@@ -44,7 +44,7 @@
             if (next != null) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
                     var url = '/posts/' + post_id + '/' + next;
-                    getJodel(url, "#details", false);
+                    getJodel(url, "#details", true);
                     console.log("done loading more replys");
                 }
             }

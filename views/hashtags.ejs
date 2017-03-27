@@ -55,7 +55,7 @@
             if (next != null) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
                     var url = '/posts/' + post_id + '/' + next;
-                    getJodel(url, "#details");
+                    getJodel(url, "#details", false);
                     console.log("done loading more replys");
                 }
             }

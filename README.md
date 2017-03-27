@@ -19,22 +19,22 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 * Node.js
 * [jodel_api](https://github.com/nborrmann/jodel_api) by [nborrmann](https://github.com/nborrmann)
 * Python 3.x
-* optional: nodemon
+* Python module [Requests](http://docs.python-requests.org/en/master/user/install/) `pip3 install requests` 
+* Optional: [nodemon](https://nodemon.io/) `npm install nodemon -g`
 
 
 
 ## Installation
 
-- download or clone this repository
-- navigate to the root directory
-- run `npm install` to install the dependencies
-- place `jodel_api.py` into the root directory
-- run `python3 jodel.py`, hit `1` and create an account by following the instructions.
+- Download or clone this repository and navigate to the root directory.
+- Run `npm install` to install the dependencies.
+- Place `jodel_api.py` into the root directory.
+- Run `python3 jodel.py`(for MacOS, or `py -3 jodel.py` on Windows), hit `1` and create an account by following the instructions.
 - To start the webserver, run: `nodemon app` or `node ./bin/www`
-- open `http://localhost:3000` in your browser
+- Open `http://localhost:3000` in your browser
 
 
-Or turn the website into a desktop application using this <br>
+Or turn the website into a desktop application using this 
 command line tool: [Nativefier](https://github.com/jiahaog/nativefier).
 Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min-width 400px`
 
@@ -44,19 +44,17 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 - Filter responses: Only show OJs responses?
 
-- Done: Hashtagbrowser, e.g. display all Jodels containing #archiv
-
 - Set a custom location: kind of...
 
-
+- Pin a Jodel
 
 ## Notices
 
 ### Authentication
 
-The authentication token "Bearer ..." in `/routes/index.js`  was generated on a real device. Please do not use it for harmful purposes. 
+You need to generate a Jodel account before first use. Follow the installation instructions.
 
-If the built-in access token (Bearer xxx) fails to work - Maybe due to excessive use ;-) - feel free to generate and use your own access token. Or use the Python script `jodel.py`
+
 ### Location
 <s>You can't change the location yet. Since the built-in auth token is linked the location of the real device.</s> Use `jodel.py`.
 
