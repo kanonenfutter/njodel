@@ -43,8 +43,8 @@ router.get('/recent', function(req, res, next) {
 		json: true,
 		method: 'GET',
 		qs: {
-			lat: '52.52001',
-			lng: '13.40495',
+			lat: '50.937531',
+			lng: '6.960279',
 			home: false,
 			stickies: false
 		}
@@ -94,6 +94,10 @@ router.get('/replied', function(req, res, next) {
 
 router.get('/voted', function(req, res, next) {
 	res.render('main_jodel', { title: 'njodel', mode: 'voted' });
+});
+
+router.get('/newsfeed', function(req, res, next) {
+	res.render('main_jodel', { title: 'njodel', mode: 'newsfeed' });
 });
 
 router.get('/recent/:latitude/:longitude', function(req, res, next) {
