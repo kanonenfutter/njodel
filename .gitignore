@@ -86,3 +86,4 @@ $RECYCLE.BIN/
 
 data.json
 jodel_api.py
+*.pyc
