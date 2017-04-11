@@ -16,6 +16,7 @@ var headers = {
 
 var account;
 
+/* Read account data */
 try {
 	account = JSON.parse(fs.readFileSync(__dirname + '/../data.json'));
 } catch (err) {
@@ -100,6 +101,7 @@ router.get('/newsfeed', function(req, res, next) {
 	res.render('main_jodel', { title: 'njodel', mode: 'newsfeed' });
 });
 
+/* Telling the jodel server the location data does not affect the response */
 router.get('/recent/:latitude/:longitude', function(req, res, next) {
 	var recentJodels = '';
 	var options = {
@@ -124,15 +126,15 @@ router.get('/recent/:latitude/:longitude', function(req, res, next) {
 
 });
 
-
+/* Render details page */
 router.get('/details/:id', function (req, res, next) {
 	res.render('detail_jodel', { title: 'njodel', id: req.params.id});
 });
-
+/* Render details page. Images Only. */
 router.get('/details/:id/imagesonly', function (req, res, next) {
 	res.render('detail_jodel_notext', { title: 'njodel', id: req.params.id});
 });
-
+/* Retrieve replies of Jodel #:id */
 router.get('/posts/:id', function (req, res, next) {
 	console.log(req.params.id);
 	var data = '';
@@ -156,7 +158,7 @@ router.get('/posts/:id', function (req, res, next) {
 			res.end();
 		});
 });
-
+/* Get newer jodels after jodel #:next */
 router.get('/posts/:id/:next', function (req, res, next) {
 	var data = '';
 	var options = {
@@ -180,11 +182,11 @@ router.get('/posts/:id/:next', function (req, res, next) {
 			res.end();
 		});
 });
-
+/* Render hashtags page */
 router.get('/hashtags', function(req, res, next) {
 	res.render('hashtags', { title: 'njodel', mode: 'hashtags' });
 });
-
+/* Retrieve jodels contains the hashtag :hashtag */
 router.get('/hashtags/:hashtag', function (req, res, next) {
 	var data = '';
 	var options = {

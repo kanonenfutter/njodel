@@ -70,6 +70,7 @@
         });       
     });
 
+
     function search() {
         var hashtag = $('#query').val();
         var url = "/hashtags/"+ hashtag;
@@ -77,7 +78,8 @@
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
-                $.each( data.voted, function (i, item) {
+                // other options for "data.recent": data.replied, data.voted.
+                $.each( data.recent, function (i, item) {
                     var age = moment(item.created_at).fromNow();
 
                     if (item.image_url == null) {

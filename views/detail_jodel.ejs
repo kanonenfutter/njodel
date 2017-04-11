@@ -29,7 +29,7 @@
 
     </div>
     <script type="text/javascript">
-
+    // Contains the ID of the last/newest reply
     var next = null;
     var post_id = "<%= id %>";
     console.log(post_id);
@@ -39,7 +39,7 @@
 		getJodel(url, "#details", false);
 
 
-
+        // Infinite Scroll
         $(window).scroll(function () {
             if (next != null) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
