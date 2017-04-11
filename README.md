@@ -1,15 +1,16 @@
 # njodel
 
-njodel ist ein einfacher Client für die Jodel API. Im Hintergrund läuft ein express.js-Webserver, der selbst eine restful API bereitstellt.
+njodel ist ein einfacher Client für die private Jodel API. Im Hintergrund läuft ein express.js-Webserver, der selbst eine restful API bereitstellt.
 
 Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](https://github.com/kanonenfutter/njodel/wiki)) ermittelt. Nur soviel sei gesagt: Traffic Capturing mit WireShark ist ein Heidenspaß ;-).
 
-![](https://image.ibb.co/fg3RAa/Screen_Shot_2017_03_24_at_12_11_51.png)
 
+![](https://image.ibb.co/b8hLQk/Screen_Shot_2017_04_11_at_20_16_27.png)
 ## Features
 * Display most recent, replied and voted Jodels.
 * Search for hashtags. There is no need to spam the timeline. :)
 * Highlight OJ's replies.
+* See the Repliers ID.
 * Use Jodel on a desktop pc or in any modern webbrowser.
 
 
@@ -26,8 +27,8 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 
 ## Installation
 
-- Download or clone this repository and navigate to the root directory.
-- Run `npm install` to install the dependencies.
+1. Download or clone this repository and navigate to the root directory.
+2. Run `npm install` to install the dependencies.
 - Place `jodel_api.py` into the root directory.
 - Run `python3 jodel.py`(for MacOS, or `py -3 jodel.py` on Windows), hit `1` and create an account by following the instructions.
 - To start the webserver, run: `nodemon app` or `node ./bin/www`
@@ -38,15 +39,30 @@ Or turn the website into a desktop application using this
 command line tool: [Nativefier](https://github.com/jiahaog/nativefier).
 Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min-width 400px`
 
+## Quick Installation (Windows)
+
+* Run `setup.bat`: This script replaces steps 2. and 3. It also installs `requests` and `nodemon`.
+* Run `jodel_account.bat` and hit `1` to create an account.
+* Run `start.bat` to start the server.
+
+
+
+
+
 
 
 ## Coming features
-
 - Filter responses: Only show OJs responses?
 
 - Set a custom location: kind of...
 
 - Pin a Jodel
+
+
+
+## Issues
+- Infinite scroll sometimes acts really weird or not at all.
+- At some point, the account needs to be revalidated(?).
 
 ## Notices
 
