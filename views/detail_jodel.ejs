@@ -23,6 +23,7 @@
         </div>   
     </div>
     <div id="details" class="list"></div>
+    <div id="footer_shadow" class="footer_shadow"></div>
     <div class="footer">
         <a href="https://github.com/kanonenfutter/njodel">Github-Repo</a>
         <%= title %> ist ein einfacher Jodelclient.
@@ -30,7 +31,7 @@
     </div>
     <script type="text/javascript">
     // Contains the ID of the last/newest reply
-    var next = null;
+    var last_post_id = null;
     var post_id = "<%= id %>";
     console.log(post_id);
     var first_post_id = null;
@@ -41,9 +42,9 @@
 
         // Infinite Scroll
         $(window).scroll(function () {
-            if (next != null) {
+            if (last_post_id != null) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
-                    var url = '/posts/' + post_id + '/' + next;
+                    var url = '/posts/' + post_id + '/' + last_post_id;
                     getJodel(url, "#details", false);
                     console.log("done loading more replys");
                 }

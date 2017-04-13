@@ -3,8 +3,8 @@ function getJodel(url, element, images_only_flag) {
         .done(function (data) {
             console.log(data);
             if (data.next != null) {
-                next = data.next;
-                console.log(next);
+                last_post_id = data.next;
+                console.log(last_post_id);
             }
             if (data.details != null) {
                 var age = moment(data.details.created_at).fromNow();
@@ -44,10 +44,13 @@ function getJodel(url, element, images_only_flag) {
                 }
             });
             if (data.next != null) {
-                next = data.next;
+                last_post_id = data.next;
 
             } else {
-                next = null;
+                last_post_id = null;
+            }
+            if (data.error!= null) {
+                $(element).append('<div class="jodel" style="background-color: grey;"><div class="msg">' + data.error + '</div></div>');
             }
             highlightByClass("oj","yellow");
 

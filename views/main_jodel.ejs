@@ -34,18 +34,18 @@
     </div>
     <script type="text/javascript">
 
-    var next = null;
+    var last_post_id = null;
     var post_id = "";
     var first_post_id = null;
     $(document).ready(function () {
-    	var url = "/recent";
-        getmainJodel(url);
+    	var url = "/posts/" + "<%= mode %>";
+        getPosts(url);
 
         $(window).scroll(function () {
-            if (next != null) {
+            if (last_post_id != null) {
                 if ($(window).scrollTop() >= $(document).height() - $(window).height()-1) {
-                    var url = '/recent/' + next;
-                    getnextJodel(url);
+                    var url = '/posts/after/' + last_post_id;
+                    getnextPosts(url);
                     console.log("done loading more replys");
                 }
             }
@@ -60,7 +60,7 @@
         });       
     });
 
-    function getmainJodel(url) {
+    function getPosts(url) {
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
@@ -68,7 +68,7 @@
                 //first_post_id = data.recent[0].post_id;
                 //console.log(first_post_id);
                 // end
-                $.each( data.<%= mode %>, function (i, item) {
+                $.each( data.posts, function (i, item) {
                     var age = moment(item.created_at).fromNow();
 
                     if (item.image_url == null) {
@@ -88,9 +88,10 @@
                     }
 
                 });
-                // store ID of last post. Needed for loading next/older jodels
-                next = data.<%= mode %>[data.<%= mode %>.length-1].post_id;
-                console.log(next);
+                // store ID of last post. Needed for loading next/newer jodels
+                //last_post_id = data.<%= mode %>[data.<%= mode %>.length-1].post_id;
+                last_post_id = data.posts[data.posts.length-1].post_id;
+                console.log(last_post_id);
                 
 
             })
@@ -102,7 +103,7 @@
             });
 
     }
-    function getnextJodel(url) {
+    function getnextPosts(url) {
         $.getJSON(url)
             .done(function (data) {
                 console.log(data);
@@ -131,8 +132,8 @@
 
                 });
                 // store ID of last post. Needed for loading next/older jodels
-                next = data.posts[data.posts.length-1].post_id;
-                console.log(next);
+                last_post_id = data.posts[data.posts.length-1].post_id;
+                console.log(last_post_id);
                 
 
             })
