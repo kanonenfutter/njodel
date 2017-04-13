@@ -35,25 +35,75 @@ router.get('/', function(req, res, next) {
   	res.render('main_jodel', { title: 'njodel', mode: 'recent' });
 });
 
-/* Get recent jodels. Response: recent, most replied and voted jodels. */
-router.get('/recent', function(req, res, next) {
-	var recentJodels = '';
-	var options = {
-		uri: host + '/api/v3/posts/location/combo',
-		headers: headers,
-		json: true,
-		method: 'GET',
-		qs: {
-			lat: '50.937531',
-			lng: '6.960279',
-			home: false,
-			stickies: false
-		}
+/* Get jodels. Response: recent, most replied and voted jodels. */
+//TODO: implement ressources for retrieving recent, most replied OR voted jodels.
+var getPosts_options = {
+	uri: host + '/api/v3/posts/location/combo',
+	headers: headers,
+	json: true,
+	method: 'GET',
+	qs: {
+		lat: '50.937531',
+		lng: '6.960279',
+		home: false,
+		stickies: false
+	}
 
-	};
-	request(options)
+};
+
+router.get('/posts', function(req, res, next) {
+	request(getPosts_options)
 		.then(function (data){
 			res.json(data);
+		})
+		.catch(function (err) {
+			res.json(err.error);
+		});
+
+});
+
+router.get('/posts/recent', function(req, res, next) {
+	request(getPosts_options)
+		.then(function (data){
+			var results = {}
+			results = {
+				posts : data.recent
+			}
+			//console.log(results);
+			res.json(results);
+		})
+		.catch(function (err) {
+			console.log(err);
+			res.end();
+		});
+
+});
+
+router.get('/posts/replied', function(req, res, next) {
+	request(getPosts_options)
+		.then(function (data){
+			var results = {}
+			results = {
+				posts : data.replied
+			}
+			console.log(results);
+			res.json(results);
+		})
+		.catch(function (err) {
+			console.log(err);
+			res.end();
+		});
+
+});
+router.get('/posts/voted', function(req, res, next) {
+	request(getPosts_options)
+		.then(function (data){
+			var results = {}
+			results = {
+				posts : data.voted
+			}
+			console.log(results);
+			res.json(results);
 		})
 		.catch(function (err) {
 			console.log(err);
@@ -63,7 +113,8 @@ router.get('/recent', function(req, res, next) {
 });
 
 /* Get older Jodel. To be called after calling GET /recent. */
-router.get('/recent/:after', function(req, res, next) {
+// TODO: Rename this ressource
+router.get('/posts/after/:after', function(req, res, next) {
 	var recentJodels = '';
 	var options = {
 		uri: host + '/api/v2/posts/location/',
