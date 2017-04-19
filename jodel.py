@@ -22,7 +22,11 @@ if mode==1:
 	city = input("Stadt eingeben: ")
 	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city)
 	account = j.get_account_data()
-	data = {}
+	data = {"location_dict": {"loc_accuracy": 0.0, 
+                "city": city, 
+                "loc_coordinates": {"lat": lat, "lng": lng}, 
+                "country": "DE", 
+                "name": city}}
 	data['account']= account
 	with open('data.json', 'w') as f:
 		json.dump(data, f)

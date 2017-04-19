@@ -51,11 +51,7 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 
 ## Coming features
-- Filter responses: Only show OJs responses?
-
-- Set a custom location: kind of...
-
-- Pin a Jodel
+- Send replies
 
 
 

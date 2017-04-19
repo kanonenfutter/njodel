@@ -87,3 +87,8 @@ $RECYCLE.BIN/
 data.json
 jodel_api.py
 *.pyc
+
+# beta / personal rules
+experiments/
+jodels.json
+
