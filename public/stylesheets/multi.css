@@ -1,0 +1,99 @@
+body {
+  padding: 0px;
+  margin-right: 0px;
+  margin-left: 0px;
+  font: 20px "Source Sans Pro", "Lucida Grande", Helvetica, Arial, sans-serif;
+  /*max-width: 600px;*/
+  margin: 0 auto;
+  -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+      -ms-user-select: none;
+        user-select: none;
+}
+a {
+  color: grey;
+}
+a.res {
+  color: #FFFFFF;
+}
+div {
+	border-style: solid;
+  border-width: 0px;
+  padding: 10px;
+
+}
+
+.jodel {
+  margin: 1px;
+  color: white;
+  padding: 0px;
+  min-height: 100px;
+  font-weight: 400;
+  position:relative;
+}
+
+.msg {
+	/*float: left;*/
+}
+.karma {
+	/*min-width: 50px;*/
+  text-align: right;
+  /*padding-top: 30px;*/
+  font-size: 12px;
+}
+.row {
+	width: 100%;
+	padding: 0;
+	display: inline-flex;
+}
+.list {
+	padding: 0px;
+  	margin-bottom: 5px;
+  	width: 20%;
+  	min-width: 300px;
+  	vertical-align: top;
+}
+
+.jimage {
+  width: 100%;
+}
+
+.footer {
+  padding: 0px;
+  font-size: 10px;
+  max-width: 600px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: white;
+}
+
+.footer-shadow {
+  height: 150px;
+  padding: 0px;
+}
+/*entfernen?*/
+.details {
+  margin-bottom: 5px;
+}
+.vote_count {
+  font-size: 40px;
+  margin: 0px;
+}
+
+body.error {
+  background-color: grey;
+}
+.error {
+  font: 12px "Source Sans Pro", "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: white;
+}
+
+h1.error {
+  font-size: 40px;
+}
+
+h2.error {
+  font-size: 30px;
+}
+

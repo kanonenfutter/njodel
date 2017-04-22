@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/multi.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+  		src="http://code.jquery.com/jquery-2.2.4.min.js"
+  		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  		crossorigin="anonymous"></script>
+    <!--<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
+    <script src="/javascript/script.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
+    <script src="http://momentjs.com/downloads/moment.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+  </head>
+  <body>
+    <div class="header">
+        <h1><%= title %>/<a>multicity</a></h1>  
+    </div>
+    <!--<div id="list" class="container list">
+    	 Insert Jodels 
+    </div>-->
+    <div id="row" class="row">
+    	<!-- cities-->
+    	
+    </div>
+    <script type="text/javascript">
+
+    var last_post_id = null;
+    var post_id = "";
+    var first_post_id = null;
+    $(document).ready(function () {
+    	var url = "/multicity/posts";
+        getPosts(url);
+
+        $("img.lazy").lazyload({ 
+            effect: "fadeIn" 
+        }).removeClass("lazy");
+        $(document).ajaxStop(function(){
+            $("img.lazy").lazyload({ 
+                effect: "fadeIn"
+            }).removeClass("lazy");
+        });       
+    });
+
+    function getPosts(url) {
+        $.getJSON(url)
+            .done(function (data) {
+                console.log(data);
+                for (var i = 0; i < Object.keys(data).length; i++) {
+                	console.log(i);
+                	$("#row").append('<div id="list'+ i +'"class="list">');
+                	for (var j = 0; j < data[i].length; j++) {
+                		var item = data[i][j];
+                		var age = moment(item.created_at).fromNow();
+                		var display_msg = item.message.replace(/\n/g, "<br />");
+                    	if (item.image_url == null) {
+                    		$("#list"+i).append('<div class="jodel" style="background-color: #' + 
+                        	item.color + ';"> <div class="msg">' +  
+                        	display_msg + '</div><div class="karma"> <p class="vote_count">'+
+                        	item.vote_count+'</p><br>'+ item.city +'<br><a class="res" id="'+
+                        	item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + '<br>' + 
+                        	age +'</div></div>');
+                    	} else {
+                        	$("#list"+i).append('<div class="jodel" style="background-color: #' + 
+                            	item.color + ';"><img src="" data-original="http:'+ 
+                            	item.image_url +'" class="lazy jimage"><div class="karma"> <p class="vote_count">'+
+                            	item.vote_count+'</p><br>'+ item.city +'<br><a class="res" id="'+
+                            	item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + '<br>' + 
+                            	age +'</div></div>');
+                    	}
+                	}
+                	$("#row").append('</div>');
+                }
+            })
+            .fail(function () {
+                console.log("error");
+            })
+            .always(function () {
+                console.log("complete");
+            });
+    }
+
+    </script>
+  </body>
+</html>

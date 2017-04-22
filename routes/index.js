@@ -10,11 +10,18 @@ moment().format();
 const host = 'https://api.go-tellm.com';
 
 var headers = {
-			'User-Agent': 'Jodel/4.37.5 Dalvik/2.1.0 (Linux; U; Android 7.1; P6000 Build/NDE63P)'
+			'User-Agent': 'Jodel/4.37.2 Dalvik/2.1.0 (Linux; U; Android 7.1; P6000 Build/NDE63P)',
+			'X-Client-Type': 'android_4.37.2',
+			'X-Api-Version': '0.2',
+			'Content-Type': 'application/json; charset=UTF-8',
+			'Accept-Encoding': 'gzip',
+			'X-Timestamp': moment().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
 };
 
 
+/* account contains accounts data and location_dict created in jodel.py */
 var account;
+var multicity_top_jodels;
 
 /* Read account data */
 try {
@@ -26,9 +33,16 @@ try {
 		throw err;
 	}
 }
+try {
+	multicity_top_jodels = JSON.parse(fs.readFileSync(__dirname + '/../jodels.json'));
+} catch (err) {
+	if (err.code === 'ENOENT') {
+		console.log('jodels.json not found!');
+	} else {
+		throw err;
+	}
+}
 headers["Authorization"] = 'Bearer ' + account.account.access_token;
-
-console.log(headers);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -73,8 +87,8 @@ router.get('/posts/recent', function(req, res, next) {
 			res.json(results);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 
 });
@@ -90,8 +104,8 @@ router.get('/posts/replied', function(req, res, next) {
 			res.json(results);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 
 });
@@ -106,8 +120,8 @@ router.get('/posts/voted', function(req, res, next) {
 			res.json(results);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 
 });
@@ -134,8 +148,8 @@ router.get('/posts/after/:after', function(req, res, next) {
 			res.json(data);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 
 });
@@ -171,8 +185,8 @@ router.get('/recent/:latitude/:longitude', function(req, res, next) {
 			res.json(data);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 
 });
@@ -187,7 +201,6 @@ router.get('/details/:id/imagesonly', function (req, res, next) {
 });
 /* Retrieve replies of Jodel #:id */
 router.get('/posts/:id', function (req, res, next) {
-	console.log(req.params.id);
 	var data = '';
 	var options = {
 		uri: host + '/api/v3/posts/' + req.params.id + '/details',
@@ -205,8 +218,8 @@ router.get('/posts/:id', function (req, res, next) {
 			res.json(data);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 });
 /* Get newer jodels after jodel #:next */
@@ -229,8 +242,8 @@ router.get('/posts/:id/:next', function (req, res, next) {
 			res.json(data);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
 });
 /* Render hashtags page */
@@ -256,9 +269,17 @@ router.get('/hashtags/:hashtag', function (req, res, next) {
 			res.json(data);
 		})
 		.catch(function (err) {
-			console.log(err);
-			res.end();
+			console.log(err.error);
+			res.json(err.error);
 		});
+})
+
+router.get('/multicity', function(req, res, next) {
+	res.render('multicity', { title: 'njodel'})
+})
+
+router.get('/multicity/posts', function(req, res, next) {
+	res.json(multicity_top_jodels);
 })
 
 module.exports = router;
