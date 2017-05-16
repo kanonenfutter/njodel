@@ -25,6 +25,8 @@
     <div id="details" class="list"></div>
     <div id="footer_shadow" class="footer_shadow"></div>
     <div class="footer">
+        <input id="reply" class="input" type="text" placeholder="Deine Antwort..." >
+        <button type="button" onclick="postReply()">Antworten</button>
         <a href="https://github.com/kanonenfutter/njodel">Github-Repo</a>
         <%= title %> ist ein einfacher Jodelclient.
 
@@ -51,6 +53,27 @@
             }
         });    
     });
+
+    function postReply() {
+        // see script.js for variable "color"
+        //var color = color;
+        var msg =  $('#reply').val();
+        var url = '/posts/';
+        var data = {
+            message: msg,
+            ancestor: post_id,
+            color: color
+        };
+        $.ajax({
+            type: "POST",
+            url: url,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            success: function(){console.log("success");},
+            failure: function(){console.log("failed");}
+        })
+        // body...
+    }
     </script>
   </body>
 </html>

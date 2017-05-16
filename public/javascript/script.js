@@ -1,3 +1,4 @@
+var color;
 function getJodel(url, element, images_only_flag) {
     $.getJSON(url)
         .done(function (data) {
@@ -8,14 +9,17 @@ function getJodel(url, element, images_only_flag) {
             }
             if (data.details != null) {
                 var age = moment(data.details.created_at).fromNow();
+                var display_msg = data.details.message.replace(/\n/g, "<br />");
+                color = data.details.color;
                 if (data.details.image_url == null) {
-                    $(element).append('<div class="jodel details" style="background-color: #' + data.details.color + ';"> <div class="msg">' +  data.details.message + '</div><div class="karma">OJ - '+ age+ ' - ' +data.details.vote_count + ' Karma</div></div>');
+                    $(element).append('<div class="jodel details" style="background-color: #' + data.details.color + ';"> <div class="msg">' +  display_msg + '</div><div class="karma">OJ - '+ age+ ' - ' +data.details.vote_count + ' Karma</div></div>');
                 } else {
                     $(element).append('<div class="jodel details" style="background-color: #' + data.details.color + ';"><img src="http:'+ data.details.image_url +'" alt="image" class="jimage"><div class="karma">OJ - '+ age+ ' - ' +data.details.vote_count + ' Karma</div></div>');
                 }
             };
             $.each( data.replies, function (i, item) {
                 var age = moment(item.created_at).fromNow();
+                var display_msg = item.message.replace(/\n/g, "<br />");
                 var replier = item.replier;
                 if (replier == 0) {
                     replier = "oj";
@@ -26,7 +30,7 @@ function getJodel(url, element, images_only_flag) {
 
                 if (images_only_flag == false) {
                     if (item.image_url == null) {
-                        $(element).append('<div class="jodel '+ replier +'"  style="background-color: #' + item.color + ';"> <div class="msg">' +  item.message + '</div><div class="karma"><p class="vote_count">'+
+                        $(element).append('<div class="jodel '+ replier +'"  style="background-color: #' + item.color + ';"> <div class="msg">' +  display_msg + '</div><div class="karma"><p class="vote_count">'+
                             item.vote_count+'</p><br> <i class="fa fa-user" aria-hidden="true"></i> #' + replier + '   <i class="fa fa-clock-o" aria-hidden="true"></i> '+
                             age +'</div></div>');
                     } else {
