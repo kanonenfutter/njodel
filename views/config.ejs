@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script
+  		src="http://code.jquery.com/jquery-2.2.4.min.js"
+  		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  		crossorigin="anonymous"></script>
+    <script src="/javascript/script.js"></script>
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300:300,400" rel="stylesheet">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+   	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css"
+   integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ=="
+   crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"
+   integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg=="
+   crossorigin=""></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.js'></script>
+       <script
+  		src="http://code.jquery.com/jquery-2.2.4.min.js"
+  		integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  		crossorigin="anonymous"></script>
+  	<link href='https://api.mapbox.com/mapbox-gl-js/v0.36.0/mapbox-gl.css' rel='stylesheet' />
+  	<script src="http://momentjs.com/downloads/moment.min.js"></script>
+</head>
+<body>
+    <div class="header">
+        <h1><%= title %><a>/config</a></h1>
+        <div id="menu">
+            <a href="/"><i class="fa fa-clock-o fa-3x" aria-hidden="true"></i></a> <a href="/replied"><i class="fa fa-commenting-o fa-3x" aria-hidden="true"></i></a> <a href="/voted"><i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a> <a href="/hashtags"><i class="fa fa-search fa-3x" aria-hidden="true"></i></a><a href="/config"><i class="fa fa-cog fa-3x" aria-hidden="true"></i></a>
+        </div>   
+    </div>
+    <div>
+    	<h2>Stored account data</h2>
+    	<p id="account_data">
+    		device_uid: <%= JSON.stringify(account.device_uid) %> <br>
+    		access_token: <%= JSON.stringify(account.access_token) %><br>
+    		distinct_id: <%= JSON.stringify(account.distinct_id) %><br>
+    		expiration_date: <%= JSON.stringify(account.expiration_date) %><br>
+    		<% if(typeof location_dict !='undefined'){ %>
+    		loc_coordinates: <%= JSON.stringify(location_dict.loc_coordinates) %><br>
+
+    		city: <%= JSON.stringify(location_dict.city) %><br>
+    		name: <%= JSON.stringify(location_dict.name) %><br>
+    		country: <%= JSON.stringify(location_dict.country) %><br>
+    		<% } %>
+    	</p>
+    	Converted expiration_date: <p id="exp_date"></p>
+    	<!-- TODO: Implement function -->
+    	<button type="button" onclick="revalidate()">revalidate account</button>
+
+    </div>
+    <div>
+    	<h2>Location</h2>
+    	<a href='#' id='geolocate' class='ui-button'>Locate me</a>
+    	<div id="mapid"></div>
+    	<label for="city">City</label>
+    	<input id="city" value=""><br>
+    	<label for="lat">Latitude</label>
+    	<input id="lat" value="">
+		<label for="lng">Longitude</label>
+		<input id="lng" value="">
+		<button type="button" onclick="postLocation()">save location on existing account</button>
+		<!-- TODO: Implement function -->
+		<button type="button" onclick="create()">create new account</button>
+    </div>
+    <script type="text/javascript">
+    	// Convert unix timestamp to human readable date
+    	var date = moment.unix(<%= account.expiration_date %>);
+    	document.getElementById('exp_date').innerHTML = date;
+
+    	var geolocate = document.getElementById('geolocate');
+    	if (!navigator.geolocation) {
+    		geolocate.innerHTML = 'Geolocation is not available';
+		} else {
+    		geolocate.onclick = function (e) {
+        		e.preventDefault();
+        		e.stopPropagation();
+        		// Locate user
+        		mymap.locate({setView : true});
+    		};
+		}
+
+ 		var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+    	L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/light-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1Ijoia2Fub25lbmZ1dHRlciIsImEiOiJjajJybmw1eGkwMDExMnFub3d1aWQ0YzJ1In0.oMWHyUi73d4lqu6kFaLJEQ', {
+    		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+    		maxZoom: 18,
+    		id: 'your.mapbox.project.id',
+    		accessToken: 'your.mapbox.public.access.token'
+		}).addTo(mymap);
+
+		// Show entire world
+		mymap.fitWorld();
+
+		// Show city's name and coordinates on 'onMapClick'
+		mymap.on('click', onMapClick);
+    	function onMapClick(e) {
+    		// Do not abuse that access token. Thanks.
+    		var url = "https://api.mapbox.com/geocoding/v5/mapbox.places/"+ e.latlng.lng +"%2C"+ e.latlng.lat +".json?access_token=pk.eyJ1Ijoia2Fub25lbmZ1dHRlciIsImEiOiJjajJybmw1eGkwMDExMnFub3d1aWQ0YzJ1In0.oMWHyUi73d4lqu6kFaLJEQ&types=place"
+    		$.getJSON(url)
+    			.done(function (data) {
+    				alert("Location: " + data.features[0].text);
+    				document.getElementById("city").value = data.features[0].text;
+    				document.getElementById("lat").value = e.latlng.lat;
+    				document.getElementById("lng").value = e.latlng.lng;
+    			})
+    			.fail(function (){
+    				alert("error");
+    			})
+    			.always(function (){
+    			})
+		}
+		// POST location data to the server
+		function postLocation() {
+			var data = {
+				city: document.getElementById("city").value,
+				lat: document.getElementById("lat").value,
+				lng: document.getElementById("lng").value
+			};
+			$.ajax({
+  				type: "POST",
+  				url: "/account/location",
+  				data: data,
+  				success: alert(JSON.stringify(data))
+			});
+		}
+    </script>
+</body>
+</html>

@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var http = require('http');
-const request = require('request-promise');
+var request = require('request-promise');
 var fs = require("fs");
-
+var pythonshell = require('python-shell');
 var moment = require('moment');
 moment().format();
 
@@ -280,6 +280,31 @@ router.get('/multicity', function(req, res, next) {
 
 router.get('/multicity/posts', function(req, res, next) {
 	res.json(multicity_top_jodels);
+})
+
+router.get('/config', function(req, res, next) {
+	//console.log(account);
+	/* This might become obsolete soon */
+	if (!account.location_dict) {
+		console.log("No location stored.");
+	}
+	res.render('config', {account: account.account, location_dict: account.location_dict, title: 'njodel'});
+})
+
+/* Changes the account's location */
+/* Notice: Change pythonPath to the correct path, which may be different on other Operating Systems.
+   macOS: /usr/local/bin/python3 */
+router.post('/config/location', function(req, res, next) {
+	//console.log(req.body);
+	var options = {
+		mode: 'text',
+		args: [req.body.city, req.body.lat, req.body.lng],
+		pythonPath: '/usr/local/bin/python3'
+	}
+	pythonshell.run('./save_location.py', options, function(err, results){
+		if (err) throw err;
+		console.log('results: %j', results);
+	})
 })
 
 module.exports = router;

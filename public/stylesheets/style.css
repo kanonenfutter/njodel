@@ -93,6 +93,7 @@ button {
     border: none;
     color: white;
     padding: 15px 32px;
+    margin: 5px 0px 5px 0px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -135,4 +136,16 @@ h1.error {
 
 h2.error {
   font-size: 30px;
+}
+
+#mapid {
+  height: 300px;
+}
+
+#account_data {
+  font-size: 14px;
+}
+
+#exp_date {
+  font-size: 14px;
 }
