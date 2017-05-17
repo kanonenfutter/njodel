@@ -4,13 +4,15 @@ njodel ist ein einfacher Client für die private Jodel API. Im Hintergrund läuf
 
 Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](https://github.com/kanonenfutter/njodel/wiki)) ermittelt.
 
-![](https://image.ibb.co/b8hLQk/Screen_Shot_2017_04_11_at_20_16_27.png)
+![](http://image.ibb.co/hfv2mQ/njodel3.jpg)
+
 ## Features
 * Display most recent, replied and voted Jodels.
 * Search for hashtags. There is no need to spam the timeline. :)
 * Highlight OJ's replies.
 * See the Repliers ID.
 * Use Jodel on a desktop pc or in any modern webbrowser.
+* Change your location easily.
 
 
 
@@ -51,13 +53,12 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 
 ## Coming features
-- Send replies
+- Send replies. (very unlikely.)
 
 
 
 ## Issues
 - Infinite scroll sometimes acts really weird or not at all.
-- At some point, the account needs to be revalidated(?).
 
 ## Notices
 
@@ -68,6 +69,9 @@ You need to generate a Jodel account before first use. Follow the installation i
 
 ### Location
 <s>You can't change the location yet. Since the built-in auth token is linked the location of the real device.</s> Use `jodel.py`.
+
+### Account Revalidation
+You account's access tokens expires after a while. Revalidate your account by running `jodel_account.bat` or `jodel.py`
 
 
 ## Disclaimer
