@@ -13,7 +13,7 @@ option = eval(input("Jodel Account Verwaltung:\n"+
 	"(1) Neuen Account erstellen \n"+
 	"(2) Den Standort eines bestehenden Accounts aktualisieren \n"+
 	"(3) Bestehenden Account anzeigen\n"+
-	"(4) Access Token aktualisieren"
+	"(4) Access Token aktualisieren\n"
 	"Ziffer eingeben:"))
 
 

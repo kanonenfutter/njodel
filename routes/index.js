@@ -4,8 +4,14 @@ var http = require('http');
 var request = require('request-promise');
 var fs = require("fs");
 var pythonshell = require('python-shell');
+var os = require('os');
+var path = require('path');
 var moment = require('moment');
 moment().format();
+
+console.log("os.platform: " + os.platform() + " os.release: " + os.release());
+console.log(path.join(os.homedir(), 'AppData//Local//Programs//Python//'));
+
 
 const host = 'https://api.go-tellm.com';
 
@@ -25,10 +31,10 @@ var multicity_top_jodels;
 
 /* Read account data */
 try {
-	account = JSON.parse(fs.readFileSync(__dirname + '/../data.json'));
+	account = JSON.parse(fs.readFileSync(__dirname + '/../python/data.json'));
 } catch (err) {
 	if (err.code === 'ENOENT') {
-		console.log('data.json not found! Run jodel.py first!');
+		console.log('[Warning] data.json not found! Run jodel.py first!');
 	} else {
 		throw err;
 	}
@@ -37,7 +43,7 @@ try {
 	multicity_top_jodels = JSON.parse(fs.readFileSync(__dirname + '/../jodels.json'));
 } catch (err) {
 	if (err.code === 'ENOENT') {
-		console.log('jodels.json not found!');
+		console.log('[Warning] jodels.json not found! No jodels will be shown at <host>/multicity');
 	} else {
 		throw err;
 	}
@@ -295,13 +301,17 @@ router.get('/config', function(req, res, next) {
 /* Notice: Change pythonPath to the correct path, which may be different on other Operating Systems.
    macOS: /usr/local/bin/python3 */
 router.post('/config/location', function(req, res, next) {
-	//console.log(req.body);
+	console.log(req.body);
 	var options = {
 		mode: 'text',
 		args: [req.body.city, req.body.lat, req.body.lng],
-		pythonPath: '/usr/local/bin/python3'
 	}
-	pythonshell.run('./save_location.py', options, function(err, results){
+	if (os.platform() === 'darwin') {
+		options['pythonPath'] = '/usr/local/bin/python3'
+		
+	}
+
+	pythonshell.run('./python/save_location.py', options, function(err, results){
 		if (err) throw err;
 		console.log('results: %j', results);
 	})

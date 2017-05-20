@@ -1,1 +1,1 @@
-py -3 ./jodel.py
+py -3 ./python/jodel.py
