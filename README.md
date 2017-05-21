@@ -4,6 +4,8 @@ njodel ist ein einfacher Client für die private Jodel API. Im Hintergrund läuf
 
 Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](https://github.com/kanonenfutter/njodel/wiki)) ermittelt.
 
+**[Demo: http://njodel.info (no custom location)](http://www.njodel.info)**
+
 ![](http://image.ibb.co/hfv2mQ/njodel3.jpg)
 
 ## Features
