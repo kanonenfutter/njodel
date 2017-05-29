@@ -1,10 +1,10 @@
 function getJodel(url, element, images_only_flag) {
     $.getJSON(url)
         .done(function (data) {
-            console.log(data);
+            //console.log(data);
             if (data.next != null) {
                 last_post_id = data.next;
-                console.log(last_post_id);
+                console.log("Last post:" + last_post_id);
             }
             if (data.details != null) {
                 var age = moment(data.details.created_at).fromNow();
@@ -66,7 +66,7 @@ function getJodel(url, element, images_only_flag) {
 
 function highlightByClass(classname,colorover,colorout="transparent"){
     var elms=document.getElementsByClassName(classname);
-    console.log(elms.length);
+    //console.log(elms.length);
     for(var i=0;i<elms.length;i++){
         elms[i].onclick = function(){
             for(var k=0;k<elms.length;k++){
