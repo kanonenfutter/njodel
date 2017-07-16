@@ -3,7 +3,7 @@ var router = express.Router();
 var http = require('http');
 var request = require('request-promise');
 var fs = require("fs");
-var pythonshell = require('python-shell');
+var PythonShell = require('python-shell');
 var os = require('os');
 var path = require('path');
 var moment = require('moment');
@@ -85,10 +85,10 @@ router.get('/posts', function(req, res, next) {
 router.get('/posts/recent', function(req, res, next) {
 	request(getPosts_options)
 		.then(function (data){
-			var results = {}
+			var results = {};
 			results = {
 				posts : data.recent
-			}
+			};
 			//console.log(results);
 			res.json(results);
 		})
@@ -102,10 +102,10 @@ router.get('/posts/recent', function(req, res, next) {
 router.get('/posts/replied', function(req, res, next) {
 	request(getPosts_options)
 		.then(function (data){
-			var results = {}
+			var results = {};
 			results = {
 				posts : data.replied
-			}
+			};
 			console.log(results);
 			res.json(results);
 		})
@@ -118,10 +118,10 @@ router.get('/posts/replied', function(req, res, next) {
 router.get('/posts/voted', function(req, res, next) {
 	request(getPosts_options)
 		.then(function (data){
-			var results = {}
+			var results = {};
 			results = {
 				posts : data.voted
-			}
+			};
 			console.log(results);
 			res.json(results);
 		})
@@ -278,15 +278,15 @@ router.get('/hashtags/:hashtag', function (req, res, next) {
 			console.log(err.error);
 			res.json(err.error);
 		});
-})
+});
 
 router.get('/multicity', function(req, res, next) {
-	res.render('multicity', { title: 'njodel'})
-})
+	res.render('multicity', { title: 'njodel'});
+});
 
 router.get('/multicity/posts', function(req, res, next) {
 	res.json(multicity_top_jodels);
-})
+});
 
 router.get('/config', function(req, res, next) {
 	//console.log(account);
@@ -295,7 +295,7 @@ router.get('/config', function(req, res, next) {
 		console.log("No location stored.");
 	}
 	res.render('config', {account: account.account, location_dict: account.location_dict, title: 'njodel'});
-})
+});
 
 /* Changes the account's location */
 /* Notice: Change pythonPath to the correct path, which may be different on other Operating Systems.
@@ -304,17 +304,42 @@ router.post('/config/location', function(req, res, next) {
 	console.log(req.body);
 	var options = {
 		mode: 'text',
-		args: [req.body.city, req.body.lat, req.body.lng],
-	}
+		args: [req.body.city, req.body.lat, req.body.lng]
+	};
 	if (os.platform() === 'darwin') {
-		options['pythonPath'] = '/usr/local/bin/python3'
-		
+	 	options['pythonPath'] = 'python3';
 	}
 
-	pythonshell.run('./python/save_location.py', options, function(err, results){
-		if (err) throw err;
-		console.log('results: %j', results);
-	})
-})
+	var pyshell = new PythonShell('./python/save_location.py', options);
+
+	pyshell.on('message', function (message) {
+	  // received a message sent from the Python script (a simple "print" statement)
+	  console.log(message);
+	});
+
+	// end the input stream and allow the process to exit
+	pyshell.end(function (err) {
+	  if (err) throw err.stack;
+	  console.log('finished');
+	});
+});
+
+// router.post('/config/', function(req, res, next) {
+// 	console.log(req.body.city);
+// 	var options = {
+// 		mode: 'text',
+// 		args: [req.body.city, req.body.lat, req.body.lng]
+// 	};
+// 	if (os.platform() === 'darwin') {
+// 	 	options['pythonPath'] = 'python3';
+// 	 	console.log("python3 set.");
+		
+// 	}
+
+// 	pythonshell.run('./python/create_account.py', options, function(err, results){
+// 		if (err) throw err;
+// 		console.log('results: %j', results);
+// 	});
+// });
 
 module.exports = router;
