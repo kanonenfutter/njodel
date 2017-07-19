@@ -76,3 +76,19 @@ function highlightByClass(classname,colorover,colorout="transparent"){
     }
 
 }
+
+function convert_message(json_msg) {
+    var m = json_msg;
+    var html_message = m.replace(/\n/g, "<br>");
+    // TODO: Replace hashtags with html hyperlinks
+    //var html_message = string.replace(/(#)\w+/g, "<a href="">$&</a>");
+    return html_message;
+}
+
+function isMobile() {
+    // Check, if mobile browser
+    var ua = navigator.userAgent.toLowerCase();
+    var isMobile = ua.indexOf("mobile") > -1;
+    //document.getElementById("ua").innerHTML = isMobile;
+    return isMobile;
+}

@@ -25,7 +25,6 @@
     <div id="details" class="list"></div>
     <div id="footer_shadow" class="footer_shadow"></div>
     <div class="footer">
-        <!-- <p id="ua"></p> -->
         <a href="https://github.com/kanonenfutter/njodel">Github-Repo</a>
         <%= title %> ist ein einfacher Jodelclient.
 
@@ -52,13 +51,7 @@
             }
         });
 
-        // Check, if mobile browser
-        var ua = navigator.userAgent.toLowerCase();
-        var isMobile = ua.indexOf("mobile") > -1;
-        //document.getElementById("ua").innerHTML = isMobile;
-
-
-        if (isMobile) {
+        if (isMobile()) {
             $(".footer").prepend('<a class="button" href="https://ae3ts.app.goo.gl/?isi=789870026&ibi=com.go-tellm.tellm&ct=Share2&mt=8&pt=10642927&apn=com.tellm.android.app&utm_source=web_android2&utm_medium=banner2&utm_campaign=share_a_jodel2&afl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.tellm.android.app%26%26utm_source%3Dweb_android2%26utm_medium%3Dbanner2%26utm_campaign%3Dshare_a_jodel2&link=https://share.jodel.com/post?postId%3D<%= id %>">Open in App</a>');
         }
     });
