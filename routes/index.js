@@ -300,8 +300,6 @@ router.get('/config', function(req, res, next) {
 })
 
 /* Changes the account's location */
-/* Notice: Change pythonPath to the correct path, which may be different on other Operating Systems.
-   macOS: /usr/local/bin/python3 */
 router.post('/config/location', function(req, res, next) {
 	console.log(req.body);
 	var options = {
@@ -310,7 +308,11 @@ router.post('/config/location', function(req, res, next) {
 	};
 	if (os.platform() === 'darwin') {
 	 	options['pythonPath'] = 'python3';
-	}
+	};
+	if (os.platform() === 'win32') {
+	 	options['pythonPath'] = 'py';
+	 	options['pythonOptions'] = ['-3'];
+	};
 
 	var pyshell = new PythonShell('./python/save_location.py', options);
 
@@ -322,38 +324,64 @@ router.post('/config/location', function(req, res, next) {
 	// end the input stream and allow the process to exit
 	pyshell.end(function (err) {
 	  if (err) throw err.stack;
-	  console.log('finished');
+	  console.log('success!');
 	});
 });
 
-// router.post('/config/', function(req, res, next) {
-// 	console.log(req.body.city);
-// 	var options = {
-// 		mode: 'text',
-// 		args: [req.body.city, req.body.lat, req.body.lng]
-// 	};
-// 	if (os.platform() === 'darwin') {
-// 	 	options['pythonPath'] = 'python3';
-// 	 	console.log("python3 set.");
-		
-// 	}
-
-// 	pythonshell.run('./python/create_account.py', options, function(err, results){
-// 		if (err) throw err;
-// 		console.log('results: %j', results);
-// 	});
-// });
-
-router.post('/config/access_token', function(req, res, next) {
+/* Create a new account */
+router.post('/config/', function(req, res, next) {
+	console.log(req.body.city);
+	var options = {
+		mode: 'text',
+		args: [req.body.city, req.body.lat, req.body.lng]
+	};
 	if (os.platform() === 'darwin') {
-		options['pythonPath'] = '/usr/local/bin/python3'
-		
-	}
+	 	options['pythonPath'] = 'python3';
+	};
+	if (os.platform() === 'win32') {
+	 	options['pythonPath'] = 'py';
+	 	options['pythonOptions'] = ['-3'];
+	};
 
-	pythonshell.run('./python/refresh_token.py', options, function(err, results){
-		if (err) throw err;
-		console.log('results: %j', results);
-	})
-})
+	var pyshell = new PythonShell('./python/create_account.py', options);
+
+	pyshell.on('message', function (message) {
+	  // received a message sent from the Python script (a simple "print" statement)
+	  console.log(message);
+	});
+
+	// end the input stream and allow the process to exit
+	pyshell.end(function (err) {
+	  if (err) throw err.stack;
+	  console.log('success!');
+	});
+});
+
+/* Refresh access token */
+router.post('/config/access_token', function(req, res, next) {
+	var options = {
+		mode: 'text'
+	};
+	if (os.platform() === 'darwin') {
+	 	options['pythonPath'] = 'python3';
+	};
+	if (os.platform() === 'win32') {
+	 	options['pythonPath'] = 'py';
+	 	options['pythonOptions'] = ['-3'];
+	};
+
+	var pyshell = new PythonShell('./python/refresh_token.py', options);
+
+	pyshell.on('message', function (message) {
+	  // received a message sent from the Python script (a simple "print" statement)
+	  console.log(message);
+	});
+
+	// end the input stream and allow the process to exit
+	pyshell.end(function (err) {
+	  if (err) throw err.stack;
+	  console.log('success!');
+	});
+});
 
 module.exports = router;

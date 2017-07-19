@@ -2,9 +2,6 @@ import json
 import os
 import sys, getopt
 from os.path import dirname
-#modulesDirname = os.path.dirname(os.path.realpath(__file__))
-#sys.path.append(modulesDirname)
-#now: install "jodel_api" via pip install jodel_api
 import jodel_api
 
 def main(argv):
@@ -19,7 +16,9 @@ def main(argv):
                 "country": "DE", 
                 "name": city}}
 	data['account']= account
-	with open('data.json', 'w') as f:
+	#store account data
+	file_path = os.path.join(os.path.dirname(__file__),"data.json")
+	with open(file_path, 'w') as f:
 		json.dump(data, f)
 
 if __name__ == "__main__":

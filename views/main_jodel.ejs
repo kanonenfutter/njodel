@@ -70,11 +70,12 @@
                 // end
                 $.each( data.posts, function (i, item) {
                     var age = moment(item.created_at).fromNow();
+                    var message = convert_message(item.message);
 
                     if (item.image_url == null) {
                     $("#list").append('<div class="jodel" style="background-color: #' + 
                         item.color + ';"> <div class="msg">' +  
-                        item.message + '</div><div class="karma"> <p class="vote_count">'+
+                        message + '</div><div class="karma"> <p class="vote_count">'+
                         item.vote_count+'</p><br> <a class="res" id="'+
                         item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
                         age +'</div></div>');
@@ -113,11 +114,12 @@
                 // end
                 $.each( data.posts, function (i, item) {
                     var age = moment(item.created_at).fromNow();
+                    var message = convert_message(item.message);
 
                     if (item.image_url == null) {
                     $("#list").append('<div class="jodel" style="background-color: #' + 
                         item.color + ';"> <div class="msg">' +  
-                        item.message + '</div><div class="karma"> <p class="vote_count">'+
+                        message + '</div><div class="karma"> <p class="vote_count">'+
                         item.vote_count+'</p><br> <a class="res" id="'+
                         item.post_id+'" href="/details/'+ item.post_id + '">Zu den ' + item.child_count +  ' Antworten</a>' + ' ' + 
                         age +'</div></div>');
