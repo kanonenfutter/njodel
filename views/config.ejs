@@ -32,7 +32,7 @@
             <a href="/"><i class="fa fa-clock-o fa-3x" aria-hidden="true"></i></a> <a href="/replied"><i class="fa fa-commenting-o fa-3x" aria-hidden="true"></i></a> <a href="/voted"><i class="fa fa-chevron-up fa-3x" aria-hidden="true"></i></a> <a href="/hashtags"><i class="fa fa-search fa-3x" aria-hidden="true"></i></a><a href="/config"><i class="fa fa-cog fa-3x" aria-hidden="true"></i></a>
         </div>   
     </div>
-    <div>
+    <div class="config top">
     	<h2>Stored account data</h2>
     	<p id="account_data">
     		device_uid: <%= JSON.stringify(account.device_uid) %> <br>
@@ -49,10 +49,10 @@
     	</p>
     	Converted expiration_date: <p id="exp_date"></p>
     	<!-- TODO: Implement function -->
-    	<button type="button" onclick="revalidate()">revalidate account</button>
+    	<button type="button" onclick="refresh_token()">revalidate account</button>
 
     </div>
-    <div>
+    <div class="config">
     	<h2>Location</h2>
     	<a href='#' id='geolocate' class='ui-button'>Locate me</a>
     	<div id="mapid"></div>
@@ -70,6 +70,11 @@
     	// Convert unix timestamp to human readable date
     	var date = moment.unix(<%= account.expiration_date %>);
     	document.getElementById('exp_date').innerHTML = date;
+        var os = "<%= platform %>";
+        if (os === "win32") {
+            $(".top").prepend('<div class="jodel" style="background-color: #ff7070;"><div class="msg" id="msg" ></div></div>');
+            document.getElementById('msg').innerHTML = "The local server is running on a win32 machine. Some functions shown below might not work."
+        }
 
     	var geolocate = document.getElementById('geolocate');
     	if (!navigator.geolocation) {
@@ -126,6 +131,16 @@
   				success: alert(JSON.stringify(data))
 			});
 		}
+
+        function refresh_token() {
+            $.ajax({
+                type: "POST",
+                url: "/config/access_token",
+                success: console.log("success")
+            })
+
+        }
+
     </script>
 </body>
 </html>

@@ -294,7 +294,9 @@ router.get('/config', function(req, res, next) {
 	if (!account.location_dict) {
 		console.log("No location stored.");
 	}
-	res.render('config', {account: account.account, location_dict: account.location_dict, title: 'njodel'});
+	var platform = os.platform();
+	res.render('config', {account: account.account, location_dict: account.location_dict, title: 'njodel', platform: platform});
+	
 })
 
 /* Changes the account's location */
@@ -312,6 +314,18 @@ router.post('/config/location', function(req, res, next) {
 	}
 
 	pythonshell.run('./python/save_location.py', options, function(err, results){
+		if (err) throw err;
+		console.log('results: %j', results);
+	})
+})
+
+router.post('/config/access_token', function(req, res, next) {
+	if (os.platform() === 'darwin') {
+		options['pythonPath'] = '/usr/local/bin/python3'
+		
+	}
+
+	pythonshell.run('./python/refresh_token.py', options, function(err, results){
 		if (err) throw err;
 		console.log('results: %j', results);
 	})
