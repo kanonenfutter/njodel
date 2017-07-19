@@ -2,8 +2,9 @@ import json
 import os
 import sys, getopt
 from os.path import dirname
-modulesDirname = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(modulesDirname)
+#modulesDirname = os.path.dirname(os.path.realpath(__file__))
+#sys.path.append(modulesDirname)
+#now: install "jodel_api" via pip install jodel_api
 import jodel_api
 
 #Intended usage: via node.js' module 'python-shell'. See localhost:3000/config
@@ -23,7 +24,7 @@ def main(argv):
 	distinct_id = data['account']['distinct_id']
 	device_uid = data['account']['device_uid']
 	#init jodel client with new location
-	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city, access_token=access_token, expiration_date=expiration_date, refresh_token=refresh_token, distinct_id=distinct_id, device_uid=device_uid)
+	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city, access_token=access_token, expiration_date=expiration_date, refresh_token=refresh_token, distinct_id=distinct_id, device_uid=device_uid, is_legacy=True)
 	account = j.get_account_data()
 	data = {"location_dict": {"loc_accuracy": 0.0, 
                 "city": city, 
@@ -36,4 +37,4 @@ def main(argv):
 		json.dump(data, f)
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+	main(sys.argv[1:])

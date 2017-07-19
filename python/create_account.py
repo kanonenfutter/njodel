@@ -2,8 +2,9 @@ import json
 import os
 import sys, getopt
 from os.path import dirname
-modulesDirname = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(modulesDirname)
+#modulesDirname = os.path.dirname(os.path.realpath(__file__))
+#sys.path.append(modulesDirname)
+#now: install "jodel_api" via pip install jodel_api
 import jodel_api
 
 def main(argv):

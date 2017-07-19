@@ -132,6 +132,7 @@
 			});
 		}
 
+
         function refresh_token() {
             $.ajax({
                 type: "POST",
@@ -141,6 +142,21 @@
 
         }
 
+
+                // POST account data to the server
+        function create() {
+            var data = {
+                city: document.getElementById("city").value,
+                lat: document.getElementById("lat").value,
+                lng: document.getElementById("lng").value
+            };
+            $.ajax({
+                type: "POST",
+                url: "/config/",
+                data: data,
+                success: alert(JSON.stringify(data))
+            });
+        }
     </script>
 </body>
 </html>
