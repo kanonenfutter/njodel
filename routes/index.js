@@ -32,6 +32,7 @@ var multicity_top_jodels;
 /* Read account data */
 try {
 	account = JSON.parse(fs.readFileSync(__dirname + '/../python/data.json'));
+	headers["Authorization"] = 'Bearer ' + account.account.access_token;
 } catch (err) {
 	if (err.code === 'ENOENT') {
 		console.log('[Warning] data.json not found! Run jodel.py first!');
@@ -48,7 +49,7 @@ try {
 		throw err;
 	}
 }
-headers["Authorization"] = 'Bearer ' + account.account.access_token;
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -89,12 +90,11 @@ router.get('/posts/recent', function(req, res, next) {
 			results = {
 				posts : data.recent
 			};
-			//console.log(results);
 			res.json(results);
 		})
 		.catch(function (err) {
-			console.log(err.error);
-			res.json(err.error);
+			console.log("error:" + err.error);
+			res.status(500).json({error: err.error});
 		});
 
 });
@@ -106,12 +106,11 @@ router.get('/posts/replied', function(req, res, next) {
 			results = {
 				posts : data.replied
 			};
-			console.log(results);
 			res.json(results);
 		})
 		.catch(function (err) {
-			console.log(err.error);
-			res.json(err.error);
+			console.log("error:" + err.error);
+			res.status(500).json({error: err.error});
 		});
 
 });
@@ -122,12 +121,11 @@ router.get('/posts/voted', function(req, res, next) {
 			results = {
 				posts : data.voted
 			};
-			console.log(results);
 			res.json(results);
 		})
 		.catch(function (err) {
-			console.log(err.error);
-			res.json(err.error);
+			console.log("error:" + err.error);
+			res.status(500).json({error: err.error});
 		});
 
 });
@@ -275,8 +273,8 @@ router.get('/hashtags/:hashtag', function (req, res, next) {
 			res.json(data);
 		})
 		.catch(function (err) {
-			console.log(err.error);
-			res.json(err.error);
+			console.log("error:" + err.error);
+			res.status(500).json({error: err.error});
 		});
 });
 
@@ -325,6 +323,7 @@ router.post('/config/location', function(req, res, next) {
 	pyshell.end(function (err) {
 	  if (err) throw err.stack;
 	  console.log('success!');
+	  res.end();
 	});
 });
 
@@ -354,6 +353,7 @@ router.post('/config/', function(req, res, next) {
 	pyshell.end(function (err) {
 	  if (err) throw err.stack;
 	  console.log('success!');
+	  res.end();
 	});
 });
 
@@ -381,6 +381,7 @@ router.post('/config/access_token', function(req, res, next) {
 	pyshell.end(function (err) {
 	  if (err) throw err.stack;
 	  console.log('success!');
+	  res.end();
 	});
 });
 

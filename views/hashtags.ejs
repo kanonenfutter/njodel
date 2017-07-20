@@ -99,8 +99,11 @@
                     }
                 });
             })
-            .fail(function () {
-                console.log("error");
+            .fail(function (xhr, status, error) {
+                console.log(xhr);
+                if (xhr.responseJSON.error == "Unauthorized") {
+                    $("#list").append('<div class="jodel" style="background-color: grey;"><div class="msg">' + xhr.responseJSON.error + ': Could not read account data or your access token is expired/invalid.</div></div>');
+                }
             })
             .always(function () {
                 console.log("complete");
