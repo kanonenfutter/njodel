@@ -10,7 +10,6 @@ var moment = require('moment');
 moment().format();
 
 console.log("os.platform: " + os.platform() + " os.release: " + os.release());
-console.log(path.join(os.homedir(), 'AppData//Local//Programs//Python//'));
 
 
 const host = 'https://api.go-tellm.com';
@@ -44,7 +43,7 @@ try {
 	multicity_top_jodels = JSON.parse(fs.readFileSync(__dirname + '/../jodels.json'));
 } catch (err) {
 	if (err.code === 'ENOENT') {
-		console.log('[Warning] jodels.json not found! No jodels will be shown at <host>/multicity');
+		console.log('[Warning] jodels.json not found! No posts will be shown at <host>/multicity');
 	} else {
 		throw err;
 	}
@@ -292,6 +291,7 @@ router.get('/config', function(req, res, next) {
 	if (!account.location_dict) {
 		console.log("No location stored.");
 	}
+	//Tell the requesting client the platform on which the server is running.
 	var platform = os.platform();
 	res.render('config', {account: account.account, location_dict: account.location_dict, title: 'njodel', platform: platform});
 	

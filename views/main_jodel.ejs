@@ -2,7 +2,13 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link id='pagestyle' rel='stylesheet' type='text/css' href='/stylesheets/style.css' />
+    <script type="text/javascript">
+        function swapStyleSheet(sheet) {
+            document.getElementById('pagestyle').setAttribute('href', sheet);
+            localStorage.setItem("pagestyle_href", sheet);
+        }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script
   		src="http://code.jquery.com/jquery-2.2.4.min.js"
@@ -33,7 +39,7 @@
 
     </div>
     <script type="text/javascript">
-
+    swapStyleSheet(localStorage.getItem("pagestyle_href"));
     var last_post_id = null;
     var post_id = "";
     var first_post_id = null;

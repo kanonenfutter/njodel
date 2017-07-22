@@ -1,5 +1,5 @@
 body {
-  background-color: white; /* Background */
+  background-color: #283036; /* Background */
   padding: 0px;
   margin-right: 0px;
   margin-left: 0px;
@@ -12,7 +12,7 @@ body {
         user-select: none;
 }
 a {
-  color: grey;
+  color: lightgrey;
 }
 a.res {
   color: #FFFFFF;
@@ -32,6 +32,7 @@ div {
   min-height: 100px;
   font-weight: 400;
   position:relative;
+  background-color: #42505A !important; /* An algorithm calculating a "darker" version of a color would be nicer*/
 
 }
 
@@ -55,7 +56,7 @@ div {
 }
 
 .header {
-  background-color: white;
+  background-color: #435159;
 }
 
 .footer {
@@ -65,7 +66,8 @@ div {
   width: 100%;
   position: fixed;
   bottom: 0;
-  background-color: white;
+  background-color: #2D3A45;
+  color: white;
 }
 
 .footer_shadow {
@@ -94,7 +96,7 @@ div {
 }
 
 button {
-    background-color: #4CB250; /* Green */
+    background-color: #367F39; /* Green */
     border: none;
     color: white;
     padding: 15px 0px;
@@ -107,7 +109,7 @@ button {
 }
 
 .button {
-    background-color: #4CB250; /* Green */
+    background-color: #367F39; /* Green */
     border: none;
     color: white;
     padding: 15px 0px;
@@ -154,6 +156,10 @@ h1.error {
   font-size: 40px;
 }
 
+h1, h2, h3, p, label {
+  color: white;
+}
+
 h2.error {
   font-size: 30px;
 }
@@ -171,5 +177,5 @@ h2.error {
 }
 
 .config {
-  background-color: white;
+  background-color: #2F3940;
 }
