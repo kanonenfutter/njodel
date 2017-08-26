@@ -21,8 +21,8 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/locale/de.js"></script>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-  </head>
-  <body>
+    </head>
+    <body>
     <div class="header">
         <h1><%= title %><a>/<%= mode %></a></h1>
         <div id="menu">
@@ -39,7 +39,12 @@
 
     </div>
     <script type="text/javascript">
-    swapStyleSheet(localStorage.getItem("pagestyle_href"));
+    /* Probably true, if you have never used njodel on this machine before. It will set the default (light) stylesheet.*/
+    if (localStorage.getItem("pagestyle_href") === null) {
+        swapStyleSheet('/stylesheets/style.css');
+    } else {
+        swapStyleSheet(localStorage.getItem("pagestyle_href"));
+    }
     var last_post_id = null;
     var post_id = "";
     var first_post_id = null;
@@ -113,6 +118,8 @@
             });
 
     }
+
+    /* This function will load older posts */ 
     function getnextPosts(url) {
         $.getJSON(url)
             .done(function (data) {
