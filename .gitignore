@@ -92,3 +92,5 @@ jodel_api.py
 experiments/
 jodels.json
 
+
+config.js
