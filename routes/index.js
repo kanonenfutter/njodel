@@ -148,7 +148,8 @@ router.get('/posts/after/:after', function(req, res, next) {
 			lat: '52.52001',
 			lng: '13.40495',
 			home: false
-		}
+		},
+		gzip: true
 
 	};
 	request(options)
@@ -185,7 +186,8 @@ router.get('/recent/:latitude/:longitude', function(req, res, next) {
 		qs: {
 			lat: latitude,
 			lng: longitude
-		}
+		},
+		gzip: true
 
 	};
 	request(options)
@@ -218,7 +220,8 @@ router.get('/posts/:id', function (req, res, next) {
 		qs: {
 			reverse: false,
 			details: true
-		}
+		},
+		gzip: true
 
 	};
 	request(options)
@@ -242,7 +245,8 @@ router.get('/posts/:id/:next', function (req, res, next) {
 			reverse: false,
 			details: false,
 			reply: req.params.next
-		}
+		},
+		gzip: true
 
 	};
 	request(options)
@@ -269,7 +273,8 @@ router.get('/hashtags/:hashtag', function (req, res, next) {
 		qs: {
 			hashtag: req.params.hashtag,
 			home: true
-		}
+		},
+		gzip: true
 
 	};
 	request(options)
