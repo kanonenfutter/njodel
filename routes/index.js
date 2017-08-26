@@ -15,12 +15,13 @@ console.log("os.platform: " + os.platform() + " os.release: " + os.release());
 const host = 'https://api.go-tellm.com';
 
 var headers = {
-			'User-Agent': 'Jodel/4.37.2 Dalvik/2.1.0 (Linux; U; Android 7.1; P6000 Build/NDE63P)',
-			'X-Client-Type': 'android_4.37.2',
+			'User-Agent': 'Jodel/4.58.1 Dalvik/2.1.0 (Linux; U; Android 7.1; P6000 Build/NDE63P)',
+			'X-Client-Type': 'android_4.58.1',
 			'X-Api-Version': '0.2',
 			'Content-Type': 'application/json; charset=UTF-8',
 			'Accept-Encoding': 'gzip',
-			'X-Timestamp': moment().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
+			'Connection': 'Keep-Alive', 
+			'X-Timestamp': moment().utc().format('YYYY-MM-DD[T]HH:mm:ss[Z]')
 };
 
 
@@ -32,6 +33,7 @@ var multicity_top_jodels;
 try {
 	account = JSON.parse(fs.readFileSync(__dirname + '/../python/data.json'));
 	headers["Authorization"] = 'Bearer ' + account.account.access_token;
+	//console.log(headers);
 } catch (err) {
 	if (err.code === 'ENOENT') {
 		console.log('[Warning] data.json not found! Run jodel.py first!');
@@ -39,6 +41,7 @@ try {
 		throw err;
 	}
 }
+/* Read posts stored in /../jodels.json. */
 try {
 	multicity_top_jodels = JSON.parse(fs.readFileSync(__dirname + '/../jodels.json'));
 } catch (err) {
@@ -55,8 +58,8 @@ router.get('/', function(req, res, next) {
   	res.render('main_jodel', { title: 'njodel', mode: 'recent' });
 });
 
-/* Get jodels. Response: recent, most replied and voted jodels. */
-//TODO: implement ressources for retrieving recent, most replied OR voted jodels.
+/* Get posts. Response: recent, most replied and voted jodels. */
+//TODO: implement ressources for retrieving recent, most replied OR voted posts.
 var getPosts_options = {
 	uri: host + '/api/v3/posts/location/combo',
 	headers: headers,
@@ -65,11 +68,13 @@ var getPosts_options = {
 	qs: {
 		lat: '50.937531',
 		lng: '6.960279',
-		home: false,
-		stickies: false
-	}
-
+		home: true,
+		stickies: false,
+		skipHometown: false
+	},
+	gzip: true
 };
+
 
 router.get('/posts', function(req, res, next) {
 	request(getPosts_options)
@@ -225,7 +230,7 @@ router.get('/posts/:id', function (req, res, next) {
 			res.json(err.error);
 		});
 });
-/* Get newer jodels after jodel #:next */
+/* Get newer posts after jodel #:next */
 router.get('/posts/:id/:next', function (req, res, next) {
 	var data = '';
 	var options = {
@@ -253,7 +258,7 @@ router.get('/posts/:id/:next', function (req, res, next) {
 router.get('/hashtags', function(req, res, next) {
 	res.render('hashtags', { title: 'njodel', mode: 'hashtags' });
 });
-/* Retrieve jodels contains the hashtag :hashtag */
+/* Retrieve posts contains the hashtag :hashtag */
 router.get('/hashtags/:hashtag', function (req, res, next) {
 	var data = '';
 	var options = {
@@ -295,7 +300,7 @@ router.get('/config', function(req, res, next) {
 	var platform = os.platform();
 	res.render('config', {account: account.account, location_dict: account.location_dict, title: 'njodel', platform: platform});
 	
-})
+});
 
 /* Changes the account's location */
 router.post('/config/location', function(req, res, next) {
@@ -306,11 +311,11 @@ router.post('/config/location', function(req, res, next) {
 	};
 	if (os.platform() === 'darwin') {
 	 	options['pythonPath'] = 'python3';
-	};
+	}
 	if (os.platform() === 'win32') {
 	 	options['pythonPath'] = 'py';
 	 	options['pythonOptions'] = ['-3'];
-	};
+	}
 
 	var pyshell = new PythonShell('./python/save_location.py', options);
 
@@ -336,11 +341,11 @@ router.post('/config/', function(req, res, next) {
 	};
 	if (os.platform() === 'darwin') {
 	 	options['pythonPath'] = 'python3';
-	};
+	}
 	if (os.platform() === 'win32') {
 	 	options['pythonPath'] = 'py';
 	 	options['pythonOptions'] = ['-3'];
-	};
+	}
 
 	var pyshell = new PythonShell('./python/create_account.py', options);
 
@@ -364,11 +369,11 @@ router.post('/config/access_token', function(req, res, next) {
 	};
 	if (os.platform() === 'darwin') {
 	 	options['pythonPath'] = 'python3';
-	};
+	}
 	if (os.platform() === 'win32') {
 	 	options['pythonPath'] = 'py';
 	 	options['pythonOptions'] = ['-3'];
-	};
+	}
 
 	var pyshell = new PythonShell('./python/refresh_token.py', options);
 

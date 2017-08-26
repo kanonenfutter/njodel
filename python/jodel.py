@@ -20,10 +20,13 @@ option = eval(input("Jodel Account Verwaltung:\n"+
 
 if option==1:
 	print("\nBitte die Koordinaten zum Standort eingeben: Tipp: http://www.latlong.net\n")
-	lat = input("Latitude eingeben: ")
-	lng = input("Longitude eigeben: ")
-	city = input("Stadt eingeben: ")
-	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city)
+	# lat = input("Latitude eingeben: ")
+	# lng = input("Longitude eigeben: ")
+	# city = input("Stadt eingeben: ")
+	lat = 50.937531
+	lng = 6.960279
+	city = "Cologne"
+	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city, is_legacy=False)
 	account = j.get_account_data()
 	data = {"location_dict": {"loc_accuracy": 0.0, 
                 "city": city, 
