@@ -1,12 +1,26 @@
 chcp 1252
 @echo off
-echo Dieses Skript wird die folgenden Aktionen durchführen:
-echo Für Python: Requests und jodel_api installieren
-echo Für node.js: nodemon und die in der packages.json aufgelisteten Module installieren
-echo -- Stelle sicher, dass node.js und Python 3.x installiert sind. --
-pause
+echo This script will execute the following tasks:
+echo * Installing python modules: requests and jodel_api
+echo * Installing nodemon and the dependencies listed in 'packages.json'
+echo -- Make sure that node.js and Python 3.x are installed. --
+
+:choice
+set /P c=Continue?[Y/N]?
+if /I "%c%" EQU "Y" goto :yes
+if /I "%c%" EQU "N" goto :no
+goto :choice
+
+:yes
+
 pip3 install jodel_api
 pip3 install requests
 npm install nodemon -g
 npm install
 pause
+exit
+
+:no
+
+echo "Okay, bye."
+exit
