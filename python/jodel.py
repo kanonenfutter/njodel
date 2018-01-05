@@ -2,9 +2,6 @@ import json
 import os
 import sys
 from os.path import dirname
-#modulesDirname = os.path.dirname(os.path.realpath(__file__))
-#sys.path.append(modulesDirname)
-#now: install "jodel_api" via pip install jodel_api
 import jodel_api
 
 
@@ -14,18 +11,19 @@ option = eval(input("Jodel Account Verwaltung:\n"+
 	"(1) Neuen Account erstellen \n"+
 	"(2) Den Standort eines bestehenden Accounts aktualisieren \n"+
 	"(3) Bestehenden Account anzeigen\n"+
-	"(4) Access Token aktualisieren\n"
-	"Ziffer eingeben:"))
-
+	"(4) Access Token aktualisieren\nZiffer eingeben:"))
 
 if option==1:
-	print("\nBitte die Koordinaten zum Standort eingeben: Tipp: http://www.latlong.net\n")
-	# lat = input("Latitude eingeben: ")
-	# lng = input("Longitude eigeben: ")
-	# city = input("Stadt eingeben: ")
-	lat = 50.937531
-	lng = 6.960279
-	city = "Cologne"
+	print("\nBitte die Koordinaten zum Standort eingeben: Tipp: http://www.latlong.net\nEingabefeld frei lassen und [Enter] drücken um Default-Werte (Köln) zu übernehmen\n")
+	lat = input("latitude: ")
+	if lat == '':
+		lat = 50.937531
+		lng = 6.960279
+		city = "Cologne"
+	else:
+		lng = input("longitude: ")
+		city = input("city: ")
+	print("Latitude: " + str(lat) + " Longitude: " + str(lng) + " City: " + city)
 	j = jodel_api.JodelAccount(lat=lat, lng=lng, city=city, is_legacy=False)
 	account = j.get_account_data()
 	data = {"location_dict": {"loc_accuracy": 0.0, 
@@ -36,12 +34,12 @@ if option==1:
 	data['account']= account
 	with open('data.json', 'w') as f:
 		json.dump(data, f)
-	print("Account in Datei 'data.json' gespeichert.")
+	print("Account data written to 'data.json'")
 if option==2:
 	# update location. Existing account needed.
-	lat = input("latitude eingeben: ")
-	lng = input("longitude eigeben: ")
-	city = input("city eingeben: ")
+	lat = input("latitude: ")
+	lng = input("longitude: ")
+	city = input("city: ")
 	data = {}
 	with open('data.json') as f:
 		data = json.load(f)
@@ -61,7 +59,7 @@ if option==2:
 	data['account']= account
 	with open('data.json', 'w') as f:
 		json.dump(data, f)
-	print("Account in Datei 'data.json' gespeichert.")
+	print("Account data written to 'data.json'")
 if option==3:
 	with open('data.json') as f:
 		data = json.load(f)

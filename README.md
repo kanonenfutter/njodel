@@ -1,26 +1,25 @@
 # njodel
 
-njodel ist ein einfacher Client für die private Jodel API. Im Hintergrund läuft ein express.js-Webserver, der selbst eine [Restful API](https://github.com/kanonenfutter/njodel/wiki/njodel-http-API) bereitstellt.
 
-Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vorerst wurden und werden nur einige http-get Methoden implementiert. Die Resourcen wurden mittels Reverse Engineering ( [Ergebnisse](https://github.com/kanonenfutter/njodel/wiki)) ermittelt.
 
-**[Demo: http://njodel.info (no custom location)](http://www.njodel.info)**
+**[<strike>Demo: http://njodel.info (no custom location)</strike>](http://www.njodel.info)**
 
 ![](http://image.ibb.co/hfv2mQ/njodel3.jpg)
 
 ## Features
 * Display most recent, replied and voted Jodels.
-* Search for hashtags. There is no need to spam the timeline. :)
+* Search for hashtags.
 * Highlight OJ's replies.
 * See the Repliers ID.
 * Use Jodel on a desktop pc or in any modern webbrowser.
 * Change your location easily.
+* Dark theme.
 
 
 
 ## Requirements
 
-* Node.js
+* Node.js (npm@5.6.0 only supports version 4.8.7 or newer)
 * [jodel_api](https://github.com/nborrmann/jodel_api) by [nborrmann](https://github.com/nborrmann)
 * Python 3.x
 * Python module [Requests](http://docs.python-requests.org/en/master/user/install/) `pip3 install requests` 
@@ -32,23 +31,27 @@ Der Client soll keineswegs die selben Funktionen wie die offizielle anbieten. Vo
 
 1. Download or clone this repository and navigate to the root directory.
 2. Run `npm install` to install the dependencies.
-- Place `jodel_api.py` into the root directory.
-- Run `python3 jodel.py`(for MacOS, or `py -3 jodel.py` on Windows), hit `1` and create an account by following the instructions.
-- To start the webserver, run: `nodemon app` or `node ./bin/www`
-- Open `http://localhost:3000` in your browser
+3. `pip3 install jodel_api requests`
+4. Run `python3 jodel.py`(MacOS/Unix, or `py -3 jodel.py` on Windows), hit `1` and create an account by following the instructions.
+5. To start the webserver, run: `nodemon app` or `node ./bin/www`
+6. Open `http://localhost:3000` in your browser
 
 
 Or turn the website into a desktop application using this 
 command line tool: [Nativefier](https://github.com/jiahaog/nativefier).
 Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min-width 400px`
 
-## Quick Installation (Windows)
+## Quick Installation
 
+### Windows:
 * Run `setup.bat`: This script replaces steps 2. and 3. It also installs `requests` and `nodemon`.
 * Run `jodel_account.bat` and hit `1` to create an account.
 * Run `start.bat` to start the server.
 
-
+### MacOS/Unix:
+* Run `./setup.sh`: This script replaces steps 2. and 3. It also installs `requests` and `nodemon`.
+* Run `jodel_account.bat` and hit `1` to create an account.
+* Run `node ./bin/www` or `nodemon app` to start the server.
 
 
 
@@ -62,18 +65,18 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 ## Issues
 - Infinite scroll sometimes acts really weird or not at all.
 
-## Notices
+## Notes
 
 ### Authentication
 
 You need to generate a Jodel account before first use. Follow the installation instructions.
 
 
-### Location
-<s>You can't change the location yet. Since the built-in auth token is linked the location of the real device.</s> Use `jodel.py`.
+### Change your location
+Run `python/jodel.py` or use the website.
 
 ### Account Revalidation
-You account's access tokens expires after a while. Revalidate your account by running `jodel_account.bat` or `jodel.py`
+You account's access tokens expires after a while. Revalidate your account by running `jodel_account.bat`, `python/jodel.py` or use the website.
 
 
 ## Disclaimer
