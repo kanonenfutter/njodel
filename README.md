@@ -50,8 +50,7 @@ Recommended options: `nativefier "http://localhost:3000" --max-width 600px --min
 
 ### MacOS/Unix:
 * Run `./setup.sh`: This script replaces steps 2. and 3. It also installs `requests` and `nodemon`.
-* Run `jodel_account.bat` and hit `1` to create an account.
-* Run `node ./bin/www` or `nodemon app` to start the server.
+* Create an account and start the server. See step 4-6 above.
 
 
 
