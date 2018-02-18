@@ -136,7 +136,7 @@
   				type: "POST",
   				url: "/config/location",
   				data: data,
-  				success: alert(JSON.stringify(data))
+  				success: alert("Request sent. Refresh this page.")
 			});
 		}
 
@@ -145,7 +145,7 @@
             $.ajax({
                 type: "POST",
                 url: "/config/access_token",
-                success: console.log("success")
+                success: alert("Request sent. Refresh this page.")
             })
 
         }

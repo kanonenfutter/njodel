@@ -29,18 +29,8 @@ var headers = {
 var account;
 var multicity_top_jodels;
 
-/* Read account data */
-try {
-	account = JSON.parse(fs.readFileSync(__dirname + '/../python/data.json'));
-	headers["Authorization"] = 'Bearer ' + account.account.access_token;
-	//console.log(headers);
-} catch (err) {
-	if (err.code === 'ENOENT') {
-		console.log('[Warning] data.json not found! Run jodel.py first!');
-	} else {
-		throw err;
-	}
-}
+load_account();
+
 /* Read posts stored in /../jodels.json. */
 try {
 	multicity_top_jodels = JSON.parse(fs.readFileSync(__dirname + '/../jodels.json'));
@@ -333,6 +323,7 @@ router.post('/config/location', function(req, res, next) {
 	pyshell.end(function (err) {
 	  if (err) throw err.stack;
 	  console.log('success!');
+	  load_account();
 	  res.end();
 	});
 });
@@ -391,8 +382,26 @@ router.post('/config/access_token', function(req, res, next) {
 	pyshell.end(function (err) {
 	  if (err) throw err.stack;
 	  console.log('success!');
+	  load_account();
 	  res.end();
 	});
 });
+
+
+function load_account() {
+	/* Read account data */
+	try {
+		console.log("Loading account...")
+		account = JSON.parse(fs.readFileSync(__dirname + '/../python/data.json'));
+		headers["Authorization"] = 'Bearer ' + account.account.access_token;
+		//console.log(headers);
+	} catch (err) {
+		if (err.code === 'ENOENT') {
+			console.log('[Warning] data.json not found! Run jodel.py first!');
+		} else {
+			throw err;
+		}
+	}
+}
 
 module.exports = router;
