@@ -7,15 +7,17 @@
   },
   "dependencies": {
     "body-parser": "~1.16.0",
+    "compression": "^1.7.1",
     "cookie-parser": "~1.4.3",
-    "debug": "~2.6.0",
-    "ejs": "~2.5.5",
-    "express": "~4.14.1",
+    "debug": "~3.1",
+    "ejs": "~2.5.6",
+    "express": "~4.16.0",
+    "moment": "~2.20",
     "morgan": "~1.7.0",
+    "npm": "^5.6.0",
+    "python-shell": "~0.5.0",
     "request": "^2.81.0",
     "request-promise": "*",
-    "serve-favicon": "~2.3.2",
-    "python-shell": "0.4.0",
-    "moment": "*"
+    "serve-favicon": "~2.3.2"
   }
 }

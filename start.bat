@@ -1,1 +1,1 @@
-nodemon app
+node ./bin/www

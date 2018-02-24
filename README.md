@@ -2,7 +2,6 @@
 
 
 
-**[<strike>Demo: http://njodel.info (no custom location)</strike>](http://www.njodel.info)**
 
 ![](http://image.ibb.co/hfv2mQ/njodel3.jpg)
 
@@ -23,7 +22,7 @@
 * [jodel_api](https://github.com/nborrmann/jodel_api) by [nborrmann](https://github.com/nborrmann)
 * Python 3.x
 * Python module [Requests](http://docs.python-requests.org/en/master/user/install/) `pip3 install requests` 
-* Optional: [nodemon](https://nodemon.io/) `npm install nodemon -g`
+
 
 
 
@@ -33,7 +32,7 @@
 2. Run `npm install` to install the dependencies.
 3. `pip3 install jodel_api requests`
 4. Run `python3 jodel.py`(MacOS/Unix, or `py -3 jodel.py` on Windows), hit `1` and create an account by following the instructions.
-5. To start the webserver, run: `nodemon app` or `node ./bin/www`
+5. To start the webserver, run `node ./bin/www` or `npm start`
 6. Open `http://localhost:3000` in your browser
 
 
